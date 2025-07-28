@@ -1,0 +1,4 @@
+backend/.env
+backend/Seamateenv
+backend/__pycache__
+.DS_Store
