@@ -1,6 +1,6 @@
 fastapi
 openai
 pydantic
-dotenv
+python-dotenv
 uvicorn
 requests 

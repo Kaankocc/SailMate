@@ -167,6 +167,22 @@
         
         let isLoading = false;
 
+        // Environment-aware API URL detection
+        function getApiUrl() {
+            // Check if we're running on localhost
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                return 'http://localhost:8000';
+            }
+            // For production (Vercel), use relative path which will route through /api
+            return '';
+        }
+
+        // Get the appropriate API endpoint
+        function getApiEndpoint() {
+            const baseUrl = getApiUrl();
+            return baseUrl ? `${baseUrl}/ask/` : '/api/ask/';
+        }
+
         function createMessageElement(content, isUser = false, isStructuredResponse = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'chat-bubble';
@@ -256,7 +272,10 @@
             const loadingDiv = showLoading();
 
             try {
-                const response = await fetch('http://localhost:8000/ask/', {
+                const apiEndpoint = getApiEndpoint();
+                console.log('Making request to:', apiEndpoint); // Debug logging
+                
+                const response = await fetch(apiEndpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -265,7 +284,17 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    let errorMessage;
+                    if (response.status === 0 || !navigator.onLine) {
+                        errorMessage = 'No internet connection. Please check your network and try again.';
+                    } else if (response.status >= 500) {
+                        errorMessage = 'The server is temporarily unavailable. Please try again in a few moments.';
+                    } else if (response.status === 404) {
+                        errorMessage = 'The service endpoint was not found. The backend may not be deployed correctly.';
+                    } else {
+                        errorMessage = `Server responded with error ${response.status}. Please try again later.`;
+                    }
+                    throw new Error(errorMessage);
                 }
 
                 const data = await response.json();
@@ -288,9 +317,27 @@
                 addMessage(responseContent, false, isStructured);
 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('API Error:', error);
                 hideLoading(loadingDiv);
-                addMessage('Sorry, I encountered an error connecting to the server. Please try again later.');
+                
+                // Show user-friendly error message based on error type
+                let userMessage;
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    userMessage = 'Unable to connect to the service. Please check if you\'re online and try again.';
+                } else if (error.message.includes('No internet connection')) {
+                    userMessage = error.message;
+                } else if (error.message.includes('server') || error.message.includes('Server')) {
+                    userMessage = error.message;
+                } else {
+                    userMessage = 'Something went wrong. Please try again in a moment.';
+                }
+                
+                // Add helpful context for development
+                if (getApiUrl() === '') {
+                    userMessage += ' (If you\'re developing locally, make sure the backend server is running on port 8000)';
+                }
+                
+                addMessage(userMessage);
             } finally {
                 isLoading = false;
                 sendButton.disabled = false;
