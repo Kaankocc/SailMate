@@ -14,15 +14,10 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SailMate Backend", description="AI-powered sailing assistant backend.")
 
-# Add CORS middleware - Allow both local development and production domains
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8080",  # Local development
-        "http://localhost:3000",  # Alternative local port
-        "https://*.vercel.app",   # Vercel deployments
-        "https://seamate.vercel.app",  # Your production domain
-    ],
+    allow_origins=["http://localhost:8080"],  # Frontend server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,9 +30,6 @@ app.include_router(check_safety.router)
 @app.get("/ping")
 def ping():
     return {"status": "ok"}
-
-# For Vercel serverless deployment
-handler = app
 
 if __name__ == "__main__":
     import uvicorn
