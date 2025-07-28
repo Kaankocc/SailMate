@@ -14,10 +14,26 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SailMate Backend", description="AI-powered sailing assistant backend.")
 
+# Environment-aware CORS configuration
+def get_cors_origins():
+    # Get environment variable for allowed origins
+    allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+    
+    # Default origins for development and production
+    default_origins = [
+        "http://localhost:8080",  # Local development
+        "http://127.0.0.1:8080",  # Local development alternative
+        "https://your-frontend-app.vercel.app",  # Replace with your Vercel domain
+    ]
+    
+    # Combine and filter out empty strings
+    all_origins = list(set(allowed_origins + default_origins))
+    return [origin.strip() for origin in all_origins if origin.strip()]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],  # Frontend server
+    allow_origins=get_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

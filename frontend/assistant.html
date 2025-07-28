@@ -240,6 +240,18 @@
             }
         }
 
+        // Configuration for API endpoint
+        const getApiUrl = () => {
+            // Check if we're running locally
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                return 'http://localhost:8000';
+            }
+            // Production API URL - replace with your Render backend URL
+            return 'https://your-backend-app.onrender.com';
+        };
+
+        const API_BASE_URL = getApiUrl();
+
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message || isLoading) return;
@@ -256,7 +268,7 @@
             const loadingDiv = showLoading();
 
             try {
-                const response = await fetch('http://localhost:8000/ask/', {
+                const response = await fetch(`${API_BASE_URL}/ask/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
