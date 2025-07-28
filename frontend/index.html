@@ -116,6 +116,95 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            /* Disable parallax on mobile for better performance */
+            .parallax-bg {
+                background-attachment: scroll;
+            }
+            
+            /* Better mobile touch targets */
+            .mobile-touch-target {
+                min-height: 48px;
+                min-width: 48px;
+            }
+            
+            /* Mobile button improvements */
+            .mobile-btn {
+                padding: 12px 24px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            /* Mobile text optimizations */
+            .mobile-text-lg {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+        }
+        
+        /* Mobile Menu Animations */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.open {
+            max-height: 300px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Hamburger Icon Animation */
+        .hamburger {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger svg {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger.open svg {
+            transform: rotate(90deg);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        
+        .hamburger.open .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(2px, 6px);
+        }
+        
+        .hamburger.open .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .hamburger.open .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(2px, -6px);
+        }
+        
+        /* Mobile Menu Item Animations */
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-menu.open .mobile-menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mobile-menu.open .mobile-menu-item:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.open .mobile-menu-item:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-menu.open .mobile-menu-item:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-menu.open .mobile-menu-item:nth-child(4) { transition-delay: 0.25s; }
     </style>
 </head>
 <body class="font-inter text-gray-800">
@@ -126,37 +215,39 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <img src="images/Logo.png" alt="SailMate" class="h-40 w-auto">
+                        <img src="images/Logo.png" alt="SailMate" class="h-32 sm:h-36 md:h-40 w-auto">
                     </div>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#how-it-works" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors">How It Works</a>
-                        <a href="#about" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors">About</a>
-                        <a href="#contact" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors">Contact</a>
-                        <a href="demo.html" class="bg-docker-blue text-white px-6 py-2 rounded-full text-sm font-medium btn-hover">Try It Now</a>
+                        <a href="#how-it-works" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors mobile-touch-target">How It Works</a>
+                        <a href="#about" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors mobile-touch-target">About</a>
+                        <a href="#contact" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium transition-colors mobile-touch-target">Contact</a>
+                        <a href="demo.html" class="bg-docker-blue text-white px-6 py-2 rounded-full text-sm font-medium btn-hover mobile-touch-target">Try It Now</a>
                     </div>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-600 hover:text-docker-blue focus:outline-none">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-docker-blue focus:outline-none mobile-touch-target p-2 hamburger" aria-label="Toggle menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path class="hamburger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"/>
+                            <path class="hamburger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"/>
+                            <path class="hamburger-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"/>
                         </svg>
                     </button>
                 </div>
             </div>
 
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100">
-                    <a href="#how-it-works" class="text-gray-600 hover:text-docker-blue block px-3 py-2 text-base font-medium">How It Works</a>
-                    <a href="#about" class="text-gray-600 hover:text-docker-blue block px-3 py-2 text-base font-medium">About</a>
-                    <a href="#contact" class="text-gray-600 hover:text-docker-blue block px-3 py-2 text-base font-medium">Contact</a>
-                    <a href="demo.html" class="bg-docker-blue text-white block px-6 py-2 rounded-full text-sm font-medium mt-4 text-center">Try It Now</a>
+            <div id="mobile-menu" class="md:hidden mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-lg">
+                    <a href="#how-it-works" class="text-gray-600 hover:text-docker-blue block px-3 py-3 text-base font-medium mobile-touch-target mobile-menu-item">How It Works</a>
+                    <a href="#about" class="text-gray-600 hover:text-docker-blue block px-3 py-3 text-base font-medium mobile-touch-target mobile-menu-item">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-docker-blue block px-3 py-3 text-base font-medium mobile-touch-target mobile-menu-item">Contact</a>
+                    <a href="demo.html" class="bg-docker-blue text-white block px-6 py-3 rounded-full text-base font-medium mt-4 text-center mobile-btn mobile-touch-target mobile-menu-item">Try It Now</a>
                 </div>
             </div>
         </div>
@@ -166,13 +257,13 @@
     <section class="hero-bg pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up leading-tight">
                     Is it safe to sail today?
                 </h1>
-                <p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-up stagger-1">
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-up stagger-1 mobile-text-lg">
                     Get real-time marine forecasts, wave heights, and sailing safety analysis — just by asking a question.
                 </p>
-                <a href="demo.html" class="inline-flex items-center bg-docker-blue text-white px-8 py-4 rounded-full text-lg font-semibold btn-hover fade-in-up stagger-2">
+                <a href="demo.html" class="inline-flex items-center bg-docker-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover fade-in-up stagger-2 mobile-btn mobile-touch-target">
                     Try the Demo
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -183,141 +274,141 @@
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="how-it-works" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 fade-in-up">How It Works</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Three simple steps to get your sailing safety analysis</p>
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in-up">How It Works</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Three simple steps to get your sailing safety analysis</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Step 1 -->
-                <div class="text-center fade-in-up stagger-1">
+                <div class="text-center fade-in-up stagger-1 p-4">
                     <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Ask a Question</h3>
-                    <p class="text-gray-600">e.g. "How are the waves near Santa Cruz?"</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Ask a Question</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">e.g. "How are the waves near Santa Cruz?"</p>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="text-center fade-in-up stagger-2">
+                <div class="text-center fade-in-up stagger-2 p-4">
                     <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">We Fetch Real-Time Data</h3>
-                    <p class="text-gray-600">From OpenWeather + Open-Meteo APIs</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">We Fetch Real-Time Data</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">From OpenWeather + Open-Meteo APIs</p>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="text-center fade-in-up stagger-3">
+                <div class="text-center fade-in-up stagger-3 p-4">
                     <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Get Sailing Advice</h3>
-                    <p class="text-gray-600">Our AI assistant explains wind, waves, and safety clearly</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Get Sailing Advice</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Our AI assistant explains wind, waves, and safety clearly</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-soft-gray">
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-soft-gray">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 fade-in-up">Why Choose SailMate?</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Everything you need for safe sailing decisions</p>
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in-up">Why Choose SailMate?</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Everything you need for safe sailing decisions</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-1">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-1">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">No Installation</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">No Installation</h3>
                     </div>
-                    <p class="text-gray-600">Works from your browser — no downloads required</p>
+                    <p class="text-gray-600 text-sm sm:text-base">Works from your browser — no downloads required</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-2">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-2">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Real-Time Data</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">Real-Time Data</h3>
                     </div>
-                    <p class="text-gray-600">Live marine & weather data from trusted sources</p>
+                    <p class="text-gray-600 text-sm sm:text-base">Live marine & weather data from trusted sources</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-3">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-3">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">AI-Powered Safety</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">AI-Powered Safety</h3>
                     </div>
-                    <p class="text-gray-600">Intelligent analysis of conditions and risks</p>
+                    <p class="text-gray-600 text-sm sm:text-base">Intelligent analysis of conditions and risks</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-4">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-4">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Location-Aware</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">Location-Aware</h3>
                     </div>
-                    <p class="text-gray-600">Smart suggestions based on your area</p>
+                    <p class="text-gray-600 text-sm sm:text-base">Smart suggestions based on your area</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-5">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-5">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Mobile-Ready</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">Mobile-Ready</h3>
                     </div>
-                    <p class="text-gray-600">Optimized for phones and tablets</p>
+                    <p class="text-gray-600 text-sm sm:text-base">Optimized for phones and tablets</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm slide-up stagger-6">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-6">
                     <div class="flex items-center mb-4">
                         <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
                             <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Always Free</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">Always Free</h3>
                     </div>
-                    <p class="text-gray-600">No subscriptions or hidden fees</p>
+                    <p class="text-gray-600 text-sm sm:text-base">No subscriptions or hidden fees</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Banner -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-docker-blue">
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-docker-blue">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 fade-in-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 fade-in-up leading-tight">
                 Whether you're planning a weekend sail or checking tomorrow's forecast — we've got your back.
             </h2>
-            <a href="demo.html" class="inline-flex items-center bg-white text-docker-blue px-8 py-4 rounded-full text-lg font-semibold btn-hover fade-in-up stagger-1">
+            <a href="demo.html" class="inline-flex items-center bg-white text-docker-blue px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover fade-in-up stagger-1 mobile-btn mobile-touch-target">
                 Try it Now
                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -327,22 +418,22 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="about" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 fade-in-up">About SailMate</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in-up">About SailMate</h2>
                 <div class="w-24 h-1 bg-docker-blue mx-auto mb-8 fade-in-up stagger-1"></div>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
                 <div class="fade-in-left">
-                    <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
                         We built this tool to help sailors, surfers, and explorers make safer, smarter decisions. Whether you're on the California coast or the Aegean Sea — just ask, and we'll guide you.
                     </p>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
                         Our AI combines real-time weather data, marine forecasts, and sailing expertise to give you the information you need to stay safe on the water.
                     </p>
-                    <a href="#contact" class="inline-flex items-center bg-docker-blue text-white px-6 py-3 rounded-full font-medium btn-hover">
+                    <a href="#contact" class="inline-flex items-center bg-docker-blue text-white px-6 py-3 rounded-full font-medium btn-hover mobile-btn mobile-touch-target">
                         Get in Touch
                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -351,64 +442,92 @@
                 </div>
                 
                 <div class="text-center fade-in-right">
-                    <div class="bg-docker-blue/10 rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-6 scale-in">
-                        <svg class="w-16 h-16 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-docker-blue/10 rounded-full w-24 sm:w-32 h-24 sm:h-32 flex items-center justify-center mx-auto mb-6 scale-in">
+                        <svg class="w-12 sm:w-16 h-12 sm:h-16 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Built by Sailors</h3>
-                    <p class="text-gray-600">For sailors, by sailors</p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Built by Sailors</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">For sailors, by sailors</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer class="bg-gray-900 text-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-4">
-                        <img src="images/Logo.png" alt="SailMate" class="h-20 w-auto mr-3">
-                        <h3 class="text-2xl font-bold text-white">SailMate</h3>
+            <!-- Mobile-first footer layout -->
+            <div class="text-center md:text-left">
+                <!-- Logo and Brand - Centered on mobile -->
+                <div class="mb-8 md:mb-0">
+                    <div class="flex justify-center md:justify-start mb-4">
+                        <img src="images/Logo.png" alt="SailMate" class="h-20 sm:h-24 md:h-28 w-auto">
                     </div>
-                    <p class="text-gray-300 mb-4">Making sailing safer and smarter with AI-powered marine forecasts.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                    <p class="text-gray-300 mb-6 text-sm sm:text-base max-w-md mx-auto md:mx-0">
+                        Making sailing safer and smarter with AI-powered marine forecasts.
+                    </p>
+                    
+                    <!-- Social Media Links - Centered on mobile -->
+                    <div class="flex justify-center md:justify-start space-x-6 mb-8 md:mb-0">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors mobile-touch-target" aria-label="Twitter">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                             </svg>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors mobile-touch-target" aria-label="GitHub">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
                         </a>
                     </div>
                 </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#how-it-works" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
-                        <li><a href="demo.html" class="text-gray-300 hover:text-white transition-colors">Try Demo</a></li>
-                        <li><a href="demo.html" class="text-gray-300 hover:text-white transition-colors">Get Started</a></li>
+            </div>
+            
+            <!-- Navigation Links - Better organized on mobile -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-gray-800">
+                <div class="text-center md:text-left">
+                    <h4 class="text-base sm:text-lg font-semibold mb-4 text-white">Product</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#how-it-works" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">How It Works</a></li>
+                        <li><a href="demo.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Try Demo</a></li>
+                        <li><a href="assistant.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Get Started</a></li>
                     </ul>
                 </div>
                 
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a></li>
-                        <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Terms</a></li>
+                <div class="text-center md:text-left">
+                    <h4 class="text-base sm:text-lg font-semibold mb-4 text-white">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">About</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Contact</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Privacy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="text-base sm:text-lg font-semibold mb-4 text-white">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Help Center</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Terms</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="text-base sm:text-lg font-semibold mb-4 text-white">Connect</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Newsletter</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target block py-1">Community</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p class="text-gray-400">&copy; 2025 SailMate. All rights reserved.</p>
+            <!-- Copyright - Clean and centered -->
+            <div class="border-t border-gray-800 pt-6 sm:pt-8 text-center">
+                <p class="text-gray-400 text-sm sm:text-base">
+                    &copy; 2025 SailMate. All rights reserved. Built with ❤️ for sailors everywhere.
+                </p>
             </div>
         </div>
     </footer>
@@ -417,9 +536,27 @@
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
         
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('open');
+                mobileMenuButton.classList.add('open');
+            } else {
+                mobileMenu.classList.remove('open');
+                mobileMenuButton.classList.remove('open');
+            }
+        });
+        
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('open');
+                mobileMenuButton.classList.remove('open');
+            });
         });
 
         // Smooth scrolling for navigation links

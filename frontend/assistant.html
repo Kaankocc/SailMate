@@ -57,52 +57,108 @@
         .message-content {
             white-space: pre-wrap;
         }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            /* Better mobile touch targets */
+            .mobile-touch-target {
+                min-height: 48px;
+                min-width: 48px;
+            }
+            
+            /* Mobile button improvements */
+            .mobile-btn {
+                padding: 12px 24px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            /* Mobile chat optimizations */
+            .mobile-chat-bubble {
+                max-width: 85%;
+            }
+            
+            /* Mobile input improvements */
+            .mobile-input {
+                font-size: 16px; /* Prevents zoom on iOS */
+                border-radius: 12px;
+            }
+            
+            /* Mobile layout adjustments */
+            .mobile-full-height {
+                height: calc(100vh - 140px); /* Account for header and footer */
+            }
+        }
     </style>
 </head>
 <body class="font-inter bg-gray-50 h-screen flex flex-col">
     <!-- Header -->
-    <header class="bg-white border-b border-gray-200 px-4 py-4">
+    <header class="bg-white border-b border-gray-200 px-4 py-3 sm:py-4 flex-shrink-0">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div class="flex items-center">
                 <a href="index.html" class="mr-1">
-                    <img src="images/SmallLogo.png" alt="SailMate" class="h-20 w-auto">
+                    <img src="images/SmallLogo.png" alt="SailMate" class="h-16 sm:h-20 md:h-24 w-auto">
                 </a>
-                <h1 class="text-xl font-bold text-gray-900">SailMate Real Assistant</h1>
+                <h1 class="text-lg sm:text-xl font-bold text-gray-900">SailMate Real Assistant</h1>
             </div>
-            <a href="demo.html" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium">← Back to Demo</a>
+            <a href="demo.html" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium mobile-touch-target">← Back to Demo</a>
         </div>
     </header>
 
     <!-- Chat Container -->
-    <div class="flex-1 flex flex-col max-w-4xl mx-auto w-full">
+    <div class="flex-1 flex flex-col max-w-4xl mx-auto w-full mobile-full-height">
         <!-- Chat Messages -->
-        <div id="chat-messages" class="flex-1 px-4 py-6 space-y-4 overflow-y-auto">
+        <div id="chat-messages" class="flex-1 px-4 py-4 sm:py-6 space-y-3 sm:space-y-4 overflow-y-auto">
             <!-- Welcome message -->
             <div class="chat-bubble">
-                <div class="flex items-start space-x-3">
+                <div class="flex items-start space-x-2 sm:space-x-3">
                     <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
-                    <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-lg">
-                        <p class="text-gray-800">Hi! I'm your real SailMate assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions for any location. I'll fetch real-time data and provide safety recommendations.</p>
+                    <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                        <p class="text-gray-800 text-sm sm:text-base">Hi! I'm your real SailMate assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions for any location. I'll fetch real-time data and provide safety recommendations.</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Input Area -->
-        <div class="border-t border-gray-200 px-4 py-4 bg-white">
-            <div class="flex space-x-3">
+        <div class="border-t border-gray-200 px-4 py-3 sm:py-4 bg-white flex-shrink-0">
+            <div class="flex space-x-2 sm:space-x-3">
                 <input type="text" id="message-input" placeholder="Ask about marine conditions..." 
-                       class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent">
-                <button id="send-button" class="bg-docker-blue text-white px-6 py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                       class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
+                <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
                     Send
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- Minimal Footer for Assistant Page -->
+    <footer class="bg-gray-800 text-white py-3 px-4 flex-shrink-0 border-t border-gray-700">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+                <!-- Quick Links -->
+                <div class="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-4 mb-2 sm:mb-0">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors text-xs sm:text-sm mobile-touch-target">
+                        Home
+                    </a>
+                    <a href="demo.html" class="text-gray-300 hover:text-white transition-colors text-xs sm:text-sm mobile-touch-target">
+                        Demo
+                    </a>
+                    <a href="index.html#about" class="text-gray-300 hover:text-white transition-colors text-xs sm:text-sm mobile-touch-target">
+                        About
+                    </a>
+                </div>
+                
+                <!-- Copyright -->
+                <p class="text-gray-400 text-xs sm:text-sm">
+                    &copy; 2025 SailMate
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const chatMessages = document.getElementById('chat-messages');
@@ -111,33 +167,34 @@
         
         let isLoading = false;
 
-        function createMessageElement(content, isUser = false) {
+        function createMessageElement(content, isUser = false, isStructuredResponse = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'chat-bubble';
             
             if (isUser) {
                 messageDiv.innerHTML = `
-                    <div class="flex items-start space-x-3 justify-end">
-                        <div class="bg-docker-blue rounded-lg px-4 py-3 max-w-sm">
-                            <p class="text-white message-content">${content}</p>
+                    <div class="flex items-start space-x-2 sm:space-x-3 justify-end">
+                        <div class="bg-docker-blue rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                            <p class="text-white message-content text-sm sm:text-base">${content}</p>
                         </div>
                         <div class="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
                     </div>
                 `;
             } else {
+                const contentClass = isStructuredResponse ? '' : 'message-content';
                 messageDiv.innerHTML = `
-                    <div class="flex items-start space-x-3">
+                    <div class="flex items-start space-x-2 sm:space-x-3">
                         <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                             </svg>
                         </div>
-                        <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-lg">
-                            <div class="message-content">${content}</div>
+                        <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                            <div class="${contentClass} text-sm sm:text-base">${content}</div>
                         </div>
                     </div>
                 `;
@@ -150,13 +207,13 @@
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'chat-bubble';
             loadingDiv.innerHTML = `
-                <div class="flex items-start space-x-3">
+                <div class="flex items-start space-x-2 sm:space-x-3">
                     <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
-                    <div class="bg-gray-100 rounded-lg px-4 py-3">
+                    <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3">
                         <div class="typing-indicator"></div>
                     </div>
                 </div>
@@ -164,8 +221,8 @@
             return loadingDiv;
         }
 
-        function addMessage(content, isUser = false) {
-            const messageDiv = createMessageElement(content, isUser);
+        function addMessage(content, isUser = false, isStructuredResponse = false) {
+            const messageDiv = createMessageElement(content, isUser, isStructuredResponse);
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -199,7 +256,7 @@
             const loadingDiv = showLoading();
 
             try {
-                const response = await fetch('/ask', {
+                const response = await fetch('http://localhost:8000/ask/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -215,7 +272,20 @@
                 
                 // Hide loading and add assistant response
                 hideLoading(loadingDiv);
-                addMessage(data.answer || 'Sorry, I encountered an error processing your request.');
+                
+                // Create structured response if marine data is available
+                let responseContent = '';
+                let isStructured = false;
+                
+                // Check if we have marine data to display
+                if (data.wave_height !== null || data.wind_speed !== null || data.wind_direction !== null || data.safety_level !== null) {
+                    responseContent = createStructuredResponse(data);
+                    isStructured = true;
+                } else {
+                    responseContent = data.answer || 'Sorry, I encountered an error processing your request.';
+                }
+                
+                addMessage(responseContent, false, isStructured);
 
             } catch (error) {
                 console.error('Error:', error);
@@ -227,6 +297,98 @@
                 messageInput.disabled = false;
                 messageInput.focus();
             }
+        }
+
+        function createStructuredResponse(data) {
+            let structuredHtml = `<div class="space-y-3">`;
+            
+            // Add structured marine data first if available
+            if (data.wave_height !== null || data.wind_speed !== null || data.wind_direction !== null || data.safety_level !== null) {
+                structuredHtml += `<div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200 shadow-sm">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">`;
+                
+                // Wave Height
+                if (data.wave_height !== null) {
+                    const waveHeightFt = (data.wave_height * 3.28084).toFixed(1); // Convert meters to feet
+                    const waveColor = getWaveHeightColor(data.wave_height);
+                    structuredHtml += `<div>
+                        <span class="font-medium text-gray-700">Wave Height:</span>
+                        <span class="${waveColor} font-semibold"> ${waveHeightFt} feet</span>
+                    </div>`;
+                }
+                
+                // Wind Speed
+                if (data.wind_speed !== null) {
+                    const windColor = getWindSpeedColor(data.wind_speed);
+                    structuredHtml += `<div>
+                        <span class="font-medium text-gray-700">Wind Speed:</span>
+                        <span class="${windColor} font-semibold"> ${data.wind_speed.toFixed(1)} knots</span>
+                    </div>`;
+                }
+                
+                // Wind Direction
+                if (data.wind_direction !== null) {
+                    const windDir = getWindDirection(data.wind_direction);
+                    structuredHtml += `<div>
+                        <span class="font-medium text-gray-700">Wind Direction:</span>
+                        <span class="text-blue-600 font-semibold"> ${windDir}</span>
+                    </div>`;
+                }
+                
+                // Safety Level
+                if (data.safety_level !== null) {
+                    const safetyColor = getSafetyLevelColor(data.safety_level);
+                    structuredHtml += `<div>
+                        <span class="font-medium text-gray-700">Safety Level:</span>
+                        <span class="${safetyColor} font-semibold"> ${data.safety_level}</span>
+                    </div>`;
+                }
+                
+                structuredHtml += `</div>
+                </div>`;
+            }
+            
+            // Add the AI answer text below the marine data
+            if (data.answer) {
+                structuredHtml += `<p class="text-gray-800 text-sm sm:text-base">${data.answer}</p>`;
+            }
+            
+            structuredHtml += `</div>`;
+            return structuredHtml;
+        }
+
+        function getWaveHeightColor(heightMeters) {
+            if (heightMeters <= 1.0) return 'text-green-600';      // < 3.3 feet
+            if (heightMeters <= 2.0) return 'text-blue-600';       // 3.3-6.6 feet
+            if (heightMeters <= 3.0) return 'text-orange-600';     // 6.6-9.8 feet
+            return 'text-red-600';                                  // > 9.8 feet
+        }
+
+        function getWindSpeedColor(speedKnots) {
+            if (speedKnots <= 10) return 'text-green-600';         // Light winds
+            if (speedKnots <= 20) return 'text-blue-600';          // Moderate winds
+            if (speedKnots <= 30) return 'text-orange-600';        // Strong winds
+            return 'text-red-600';                                  // Very strong winds
+        }
+
+        function getSafetyLevelColor(safetyLevel) {
+            const level = safetyLevel.toLowerCase();
+            if (level.includes('safe') || level.includes('good') || level.includes('excellent')) {
+                return 'text-green-600';
+            } else if (level.includes('moderate') || level.includes('fair')) {
+                return 'text-blue-600';
+            } else if (level.includes('caution') || level.includes('poor')) {
+                return 'text-orange-600';
+            } else if (level.includes('dangerous') || level.includes('unsafe')) {
+                return 'text-red-600';
+            }
+            return 'text-gray-600'; // Default
+        }
+
+        function getWindDirection(degrees) {
+            const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+            const index = Math.round(degrees / 22.5) % 16;
+            return directions[index];
         }
 
         // Event listeners
