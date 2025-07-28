@@ -250,3 +250,49 @@ def get_weather_and_safety(request: CheckSafetyRequest) -> Tuple[Dict[str, Any],
     print(f"{'='*60}\n")
 
     return weather_info, safety
+
+
+def calculate_safety_level(marine_data: Dict[str, Any]) -> str:
+    """
+    Calculate safety level based on marine data.
+    Returns: "Safe", "Caution", or "Unsafe"
+    """
+    if "error" in marine_data:
+        return "Unknown"
+    
+    safety_score = 0
+    
+    # Wind conditions (0-3 points)
+    wind_speed_mps = marine_data.get("wind_speed_mps", 0)
+    wind_knots = wind_speed_mps * 1.94384 if wind_speed_mps else 0
+    
+    if wind_knots < 15:
+        safety_score += 3
+    elif wind_knots < 25:
+        safety_score += 2
+    elif wind_knots < 35:
+        safety_score += 1
+    
+    # Visibility conditions (0-2 points)
+    visibility = marine_data.get("visibility_m", 10000)
+    if visibility >= 10000:
+        safety_score += 2
+    elif visibility >= 5000:
+        safety_score += 1
+    
+    # Wave conditions (0-3 points)
+    wave_height = marine_data.get("wave_height_m", 0)
+    if wave_height < 1.0:
+        safety_score += 3
+    elif wave_height < 2.0:
+        safety_score += 2
+    elif wave_height < 3.0:
+        safety_score += 1
+    
+    # Determine safety rating based on total score
+    if safety_score >= 7:
+        return "Safe"
+    elif safety_score >= 4:
+        return "Caution"
+    else:
+        return "Unsafe"

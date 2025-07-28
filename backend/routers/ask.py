@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from schemas.ask import AskRequest, AskResponse
-from services.marine_data import get_marine_data_by_coordinates
+from services.marine_data import get_marine_data_by_coordinates, calculate_safety_level
 from services.location_extractor import extract_location_from_question
 from services.geocoding import geocode_location
 from llm.openai_client import get_ai_response
@@ -56,10 +56,23 @@ def ask_question(request: AskRequest):
         
         ai_response = get_ai_response(request.question, marine_data)
         
+        # Step 5: Extract specific marine data fields for JSON response
+        wave_height = marine_data.get("wave_height_m")
+        wind_speed_mps = marine_data.get("wind_speed_mps")
+        wind_speed_knots = wind_speed_mps * 1.94384 if wind_speed_mps else None
+        wind_direction = marine_data.get("wind_deg")
+        safety_level = calculate_safety_level(marine_data)
+        
         print(f"\n✅ PROCESSING COMPLETE")
         print(f"{'='*60}\n")
         
-        return AskResponse(answer=ai_response)
+        return AskResponse(
+            answer=ai_response,
+            wave_height=wave_height,
+            wind_speed=wind_speed_knots,
+            wind_direction=wind_direction,
+            safety_level=safety_level
+        )
         
     except Exception as e:
         print(f"\n❌ PROCESSING ERROR: {e}")
