@@ -26,24 +26,49 @@
     </script>
     <style>
         .chat-bubble {
-            animation: fadeInUp 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
         }
+        
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        
         .typing-indicator {
-            animation: pulse 1.5s infinite;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #0666D0;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #0666D0;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0666D0; }
         }
     </style>
 </head>
@@ -53,7 +78,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-docker-blue">SailMate</a>
+                    <a href="index.html">
+                        <img src="images/Logo.png" alt="SailMate" class="h-40 w-auto">
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <a href="index.html" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium">← Back to Home</a>
@@ -92,121 +119,7 @@
 
             <!-- Chat Messages -->
             <div id="chat-messages" class="px-6 py-4 space-y-4 min-h-96">
-                <!-- Welcome Message -->
-                <div class="chat-bubble">
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
-                        <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-sm">
-                            <p class="text-gray-800">Hi! I'm your sailing safety assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions. For example, try asking "How are the waves near Santa Cruz today?"</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- User Message -->
-                <div class="chat-bubble" style="animation-delay: 1s;">
-                    <div class="flex items-start space-x-3 justify-end">
-                        <div class="bg-docker-blue rounded-lg px-4 py-3 max-w-sm">
-                            <p class="text-white">How are the waves near Santa Cruz today?</p>
-                        </div>
-                        <div class="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Assistant Response -->
-                <div class="chat-bubble" style="animation-delay: 2s;">
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
-                        <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-lg">
-                            <div class="space-y-3">
-                                <p class="text-gray-800">Based on current marine data for Santa Cruz:</p>
-                                <div class="bg-white rounded-lg p-4 border border-gray-200">
-                                    <div class="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wave Height:</span>
-                                            <span class="text-green-600 font-semibold"> 3-5 feet</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wind Speed:</span>
-                                            <span class="text-blue-600 font-semibold"> 12-15 knots</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wind Direction:</span>
-                                            <span class="text-blue-600 font-semibold"> NW</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Safety Level:</span>
-                                            <span class="text-green-600 font-semibold"> Moderate</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-800">Conditions are moderate for experienced sailors. Waves are manageable but be cautious of occasional larger sets. Wind is steady from the northwest. Consider checking tide times and bring appropriate safety gear.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- User Message 2 -->
-                <div class="chat-bubble" style="animation-delay: 4s;">
-                    <div class="flex items-start space-x-3 justify-end">
-                        <div class="bg-docker-blue rounded-lg px-4 py-3 max-w-sm">
-                            <p class="text-white">What about tomorrow's forecast?</p>
-                        </div>
-                        <div class="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Assistant Response 2 -->
-                <div class="chat-bubble" style="animation-delay: 5s;">
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
-                        <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-lg">
-                            <div class="space-y-3">
-                                <p class="text-gray-800">Tomorrow's forecast for Santa Cruz shows:</p>
-                                <div class="bg-white rounded-lg p-4 border border-gray-200">
-                                    <div class="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wave Height:</span>
-                                            <span class="text-orange-600 font-semibold"> 6-8 feet</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wind Speed:</span>
-                                            <span class="text-orange-600 font-semibold"> 18-22 knots</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Wind Direction:</span>
-                                            <span class="text-blue-600 font-semibold"> W</span>
-                                        </div>
-                                        <div>
-                                            <span class="font-medium text-gray-700">Safety Level:</span>
-                                            <span class="text-orange-600 font-semibold"> Caution</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-800">⚠️ <strong>Exercise caution tomorrow.</strong> Larger waves and stronger winds expected. Only recommended for experienced sailors with proper safety equipment. Consider postponing if you're less experienced.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Messages will be added here dynamically -->
             </div>
 
             <!-- Input Area -->
@@ -258,12 +171,89 @@
     </div>
 
     <script>
-        // Demo functionality
+        const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
-        const chatMessages = document.getElementById('chat-messages');
+        
+        let demoStarted = false;
+        let currentStep = 0;
+        
+        // Demo conversation data
+        const demoConversation = [
+            {
+                type: 'assistant',
+                content: "Hi! I'm your sailing safety assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions. For example, try asking \"How are the waves near Santa Cruz today?\"",
+                delay: 1000
+            },
+            {
+                type: 'user',
+                content: "How are the waves near Santa Cruz today?",
+                delay: 2000
+            },
+            {
+                type: 'assistant',
+                content: `<div class="space-y-3">
+                    <p class="text-gray-800">Based on current marine data for Santa Cruz:</p>
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="font-medium text-gray-700">Wave Height:</span>
+                                <span class="text-green-600 font-semibold"> 3-5 feet</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Wind Speed:</span>
+                                <span class="text-blue-600 font-semibold"> 12-15 knots</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Wind Direction:</span>
+                                <span class="text-blue-600 font-semibold"> NW</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Safety Level:</span>
+                                <span class="text-green-600 font-semibold"> Moderate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-800">Conditions are moderate for experienced sailors. Waves are manageable but be cautious of occasional larger sets. Wind is steady from the northwest. Consider checking tide times and bring appropriate safety gear.</p>
+                </div>`,
+                delay: 3000
+            },
+            {
+                type: 'user',
+                content: "What about tomorrow's forecast?",
+                delay: 2000
+            },
+            {
+                type: 'assistant',
+                content: `<div class="space-y-3">
+                    <p class="text-gray-800">Tomorrow's forecast for Santa Cruz shows:</p>
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="font-medium text-gray-700">Wave Height:</span>
+                                <span class="text-orange-600 font-semibold"> 6-8 feet</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Wind Speed:</span>
+                                <span class="text-orange-600 font-semibold"> 18-22 knots</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Wind Direction:</span>
+                                <span class="text-blue-600 font-semibold"> W</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Safety Level:</span>
+                                <span class="text-orange-600 font-semibold"> Caution</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-800">⚠️ <strong>Exercise caution tomorrow.</strong> Larger waves and stronger winds expected. Only recommended for experienced sailors with proper safety equipment. Consider postponing if you're less experienced.</p>
+                </div>`,
+                delay: 3000
+            }
+        ];
 
-        function addMessage(message, isUser = false) {
+        function createMessageElement(message, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'chat-bubble';
             
@@ -289,16 +279,61 @@
                             </svg>
                         </div>
                         <div class="bg-gray-100 rounded-lg px-4 py-3 max-w-lg">
-                            <p class="text-gray-800">${message}</p>
+                            ${message}
                         </div>
                     </div>
                 `;
             }
             
+            return messageDiv;
+        }
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = createMessageElement(message, isUser);
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        function startDemo() {
+            if (demoStarted) return;
+            demoStarted = true;
+            
+            function playNextStep() {
+                if (currentStep >= demoConversation.length) {
+                    // Demo finished, enable input
+                    messageInput.disabled = false;
+                    sendButton.disabled = false;
+                    return;
+                }
+                
+                const step = demoConversation[currentStep];
+                const messageDiv = createMessageElement(step.content, step.type === 'user');
+                
+                // Add message with fade-in animation
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                currentStep++;
+                
+                // Schedule next step
+                setTimeout(playNextStep, step.delay);
+            }
+            
+            // Start the demo after a short delay
+            setTimeout(playNextStep, 1000);
+        }
+
+        // Start demo when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Disable input during demo
+            messageInput.disabled = true;
+            sendButton.disabled = true;
+            
+            // Start demo after a short delay
+            setTimeout(startDemo, 500);
+        });
+
+        // Handle manual message sending after demo
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message) {
