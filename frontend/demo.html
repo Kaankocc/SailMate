@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo - SailMate</title>
-    <meta name="title-key" content="page.demo.title">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="shortcut icon" href="/images/fav.png" type="image/png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,23 +108,7 @@
             }
         }
         
-        /* Language Switcher Mobile Enhancements */
-        .lang-option-mobile {
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid transparent;
-        }
-        
-        .lang-option-mobile:active {
-            transform: scale(0.98);
-        }
-        
-        .lang-option-mobile.active {
-            border-color: rgba(6, 102, 208, 0.2);
-            box-shadow: 0 0 0 3px rgba(6, 102, 208, 0.1);
-        }
+
     </style>
 </head>
 <body class="font-inter bg-gray-50">
@@ -137,7 +122,7 @@
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium mobile-touch-target" data-i18n="nav.back-to-home">← Back to Home</a>
+                    <a href="index.html" class="text-gray-600 hover:text-docker-blue px-3 py-2 text-sm font-medium mobile-touch-target">← Back to Home</a>
                 </div>
             </div>
         </div>
@@ -147,8 +132,8 @@
     <div class="bg-white border-b border-gray-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div class="text-center">
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4" data-i18n="demo.title">Try SailMate Demo</h1>
-                <p class="text-base sm:text-lg text-gray-600" data-i18n="demo.subtitle">See how our AI assistant helps you make safer sailing decisions</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Try SailMate Demo</h1>
+                <p class="text-base sm:text-lg text-gray-600">See how our AI assistant helps you make safer sailing decisions</p>
             </div>
         </div>
     </div>
@@ -165,8 +150,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-base sm:text-lg font-semibold text-gray-900" data-i18n="demo.assistant-title">SailMate Assistant</h3>
-                        <p class="text-xs sm:text-sm text-gray-500" data-i18n="demo.assistant-subtitle">Ask me about marine conditions and sailing safety</p>
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900">SailMate Assistant</h3>
+                        <p class="text-xs sm:text-sm text-gray-500">Ask me about marine conditions and sailing safety</p>
                     </div>
                 </div>
             </div>
@@ -179,24 +164,24 @@
             <!-- Input Area -->
             <div class="border-t border-gray-200 px-4 sm:px-6 py-4">
                 <div class="flex space-x-2 sm:space-x-3">
-                    <input type="text" id="message-input" placeholder="Ask about marine conditions..." data-i18n="demo.input-placeholder"
+                    <input type="text" id="message-input" placeholder="Ask about marine conditions..."
                            class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
                     <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
-                        <span class="button-label" data-i18n="demo.send">Send</span>
+                        <span class="button-label">Send</span>
                         <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
                     </button>
                 </div>
-                <p class="text-xs text-gray-500 mt-2" data-i18n="demo.disclaimer">This is a demo. In the real app, you can ask any sailing-related question!</p>
+                <p class="text-xs text-gray-500 mt-2">This is a demo. In the real app, you can ask any sailing-related question!</p>
             </div>
         </div>
 
         <!-- Call to Action Section -->
         <div class="mt-6 sm:mt-8 bg-docker-blue rounded-lg shadow-sm">
             <div class="px-4 sm:px-6 py-6 sm:py-8 text-center">
-                <h3 class="text-xl sm:text-2xl font-bold text-white mb-4" data-i18n="demo.want-real">Want real forecasts?</h3>
-                <p class="text-white/90 mb-6 text-base sm:text-lg" data-i18n="demo.want-real-desc">Try the full SailMate Assistant with real-time marine data</p>
+                <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">Want real forecasts?</h3>
+                <p class="text-white/90 mb-6 text-base sm:text-lg">Try the full SailMate Assistant with real-time marine data</p>
                 <a href="assistant.html" class="inline-flex items-center bg-white text-docker-blue px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors mobile-btn mobile-touch-target" id="cta-button">
-                    <span class="text-sm sm:text-base" data-i18n="demo.try-assistant">Try SailMate Assistant</span>
+                    <span class="text-sm sm:text-base">Try SailMate Assistant</span>
                     <svg class="w-4 sm:w-5 h-4 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -206,7 +191,7 @@
 
         <!-- Demo Info -->
         <div class="mt-6 sm:mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-4" data-i18n="demo.how-works">How This Works</h3>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-4">How This Works</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <div class="text-center p-3 sm:p-0">
                     <div class="bg-docker-blue/10 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
@@ -214,8 +199,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                     </div>
-                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base" data-i18n="demo.ask-naturally">Ask Naturally</h4>
-                    <p class="text-xs sm:text-sm text-gray-600" data-i18n="demo.ask-naturally-desc">Ask questions in plain English about any location</p>
+                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base">Ask Naturally</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">Ask questions in plain English about any location</p>
                 </div>
                 <div class="text-center p-3 sm:p-0">
                     <div class="bg-docker-blue/10 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
@@ -223,8 +208,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base" data-i18n="demo.real-time-data">Real-Time Data</h4>
-                    <p class="text-xs sm:text-sm text-gray-600" data-i18n="demo.real-time-data-desc">We fetch current weather and marine conditions</p>
+                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base">Real-Time Data</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">We fetch current weather and marine conditions</p>
                 </div>
                 <div class="text-center p-3 sm:p-0">
                     <div class="bg-docker-blue/10 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
@@ -232,8 +217,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
-                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base" data-i18n="demo.smart-analysis">Smart Analysis</h4>
-                    <p class="text-xs sm:text-sm text-gray-600" data-i18n="demo.smart-analysis-desc">AI provides safety recommendations and insights</p>
+                    <h4 class="font-medium text-gray-900 mb-2 text-sm sm:text-base">Smart Analysis</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">AI provides safety recommendations and insights</p>
                 </div>
             </div>
         </div>
@@ -246,30 +231,30 @@
                 <!-- Logo and Brand -->
                 <div class="mb-4">
                     <img src="images/Logo.png" alt="SailMate" class="h-16 sm:h-20 w-auto mx-auto mb-3">
-                    <p class="text-gray-300 text-sm sm:text-base max-w-md mx-auto" data-i18n="footer.tagline">
+                    <p class="text-gray-300 text-sm sm:text-base max-w-md mx-auto">
                         Making sailing safer and smarter with AI-powered marine forecasts.
                     </p>
                 </div>
                 
                 <!-- Navigation Links -->
                 <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mb-4">
-                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target" data-i18n="footer.home">
+                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target">
                         Home
                     </a>
-                    <a href="assistant.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target" data-i18n="footer.real-assistant">
+                    <a href="assistant.html" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target">
                         Real Assistant
                     </a>
-                    <a href="index.html#about" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target" data-i18n="footer.about">
+                    <a href="index.html#about" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target">
                         About
                     </a>
-                    <a href="index.html#contact" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target" data-i18n="footer.contact">
+                    <a href="index.html#contact" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target">
                         Contact
                     </a>
                 </div>
                 
                 <!-- Copyright -->
                 <div class="border-t border-gray-800 pt-4">
-                    <p class="text-gray-400 text-xs sm:text-sm" data-i18n="demo.built-love">
+                    <p class="text-gray-400 text-xs sm:text-sm">
                         &copy; 2025 SailMate. Built with ❤️ for sailors everywhere.
                     </p>
                 </div>
@@ -332,19 +317,93 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        function createDemoResponse1() {
+            return `<div class="space-y-3">
+                <p class="text-gray-800 text-sm sm:text-base">Based on current marine data for Santa Cruz:</p>
+                <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
+                        <div>
+                            <span class="font-medium text-gray-700">🌊 Wave Height:</span>
+                            <span class="text-green-600 font-semibold"> 3-5 feet</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">💨 Wind Speed:</span>
+                            <span class="text-blue-600 font-semibold"> 12-15 knots</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">🧭 Wind Direction:</span>
+                            <span class="text-blue-600 font-semibold"> NW</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">🚩 Safety Level:</span>
+                            <span class="text-green-600 font-semibold"> Safe</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-800 text-sm sm:text-base">Conditions are moderate for experienced sailors. Waves are manageable but be cautious of occasional larger sets. Wind is steady from the northwest. Consider checking tide times and bring appropriate safety gear.</p>
+            </div>`;
+        }
+
+        function createDemoResponse2() {
+            return `<div class="space-y-3">
+                <p class="text-gray-800 text-sm sm:text-base">Tomorrow's forecast for Santa Cruz shows:</p>
+                <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
+                        <div>
+                            <span class="font-medium text-gray-700">🌊 Wave Height:</span>
+                            <span class="text-orange-600 font-semibold"> 6-8 feet</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">💨 Wind Speed:</span>
+                            <span class="text-orange-600 font-semibold"> 18-22 knots</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">🧭 Wind Direction:</span>
+                            <span class="text-blue-600 font-semibold"> W</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-700">🚩 Safety Level:</span>
+                            <span class="text-orange-600 font-semibold"> Caution</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-800 text-sm sm:text-base">⚠️ <strong>Exercise caution tomorrow.</strong> Larger waves and stronger winds expected. Only recommended for experienced sailors with proper safety equipment. Consider postponing if you're less experienced.</p>
+            </div>`;
+        }
+
         function startDemo() {
             if (demoStarted) return;
             demoStarted = true;
             
-            // Wait for i18n to be ready, then get conversation
-            const waitForI18n = () => {
-                if (window.seamateI18n) {
-                    demoConversation = window.seamateI18n.getDemoConversation();
-                    playDemo();
-                } else {
-                    setTimeout(waitForI18n, 100);
+            // Set up demo conversation directly
+            demoConversation = [
+                {
+                    type: 'assistant',
+                    content: 'Hi! I\'m your sailing safety assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions. For example, try asking "How are the waves near Santa Cruz today?"',
+                    delay: 200
+                },
+                {
+                    type: 'user',
+                    content: 'How are the waves near Santa Cruz today?',
+                    delay: 2000
+                },
+                {
+                    type: 'assistant',
+                    content: createDemoResponse1(),
+                    delay: 3000
+                },
+                {
+                    type: 'user',
+                    content: 'What about tomorrow\'s forecast?',
+                    delay: 2000
+                },
+                {
+                    type: 'assistant',
+                    content: createDemoResponse2(),
+                    delay: 3000
                 }
-            };
+            ];
+            playDemo();
             
             function playDemo() {
                 function playNextStep() {
@@ -380,8 +439,7 @@
                 // Start the demo after a short delay
                 setTimeout(playNextStep, 1000);
             }
-            
-            waitForI18n();
+
         }
 
         // Start demo when page loads
@@ -416,7 +474,7 @@
             
             // Simulate AI response
             setTimeout(() => {
-                const fallbackMessage = window.seamateI18n ? window.seamateI18n.t('demo.conv.fallback') : "This is a demo! In the real SailMate app, I would analyze real-time marine data and provide detailed safety recommendations for your location. Try the full version at /ask to get actual forecasts and sailing advice.";
+                const fallbackMessage = "This is a demo! In the real SailMate app, I would analyze real-time marine data and provide detailed safety recommendations for your location. Try the full version at /ask to get actual forecasts and sailing advice.";
                 addMessage(fallbackMessage);
 
                 isLoading = false;
@@ -553,6 +611,6 @@
             }
         };
     </script>
-    <script src="js/i18n.js"></script>
+
 </body>
 </html> 
