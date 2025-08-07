@@ -181,8 +181,9 @@
                 <div class="flex space-x-2 sm:space-x-3">
                     <input type="text" id="message-input" placeholder="Ask about marine conditions..." data-i18n="demo.input-placeholder"
                            class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
-                    <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors mobile-btn mobile-touch-target text-sm sm:text-base" data-i18n="demo.send">
-                        Send
+                    <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
+                        <span class="button-label" data-i18n="demo.send">Send</span>
+                        <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
                     </button>
                 </div>
                 <p class="text-xs text-gray-500 mt-2" data-i18n="demo.disclaimer">This is a demo. In the real app, you can ask any sailing-related question!</p>
@@ -280,9 +281,12 @@
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+        const buttonLabel = document.querySelector('#send-button .button-label');
+        const buttonSpinner = document.querySelector('#send-button .button-spinner');
         
         let demoStarted = false;
         let currentStep = 0;
+        let isLoading = false;
         
         // Demo conversation data - will be populated from i18n
         let demoConversation = [];
@@ -399,24 +403,155 @@
         // Handle manual message sending after demo
         function sendMessage() {
             const message = messageInput.value.trim();
-            if (message) {
-                addMessage(message, true);
-                messageInput.value = '';
-                
-                // Simulate AI response
-                setTimeout(() => {
-                    const fallbackMessage = window.seamateI18n ? window.seamateI18n.t('demo.conv.fallback') : "This is a demo! In the real SailMate app, I would analyze real-time marine data and provide detailed safety recommendations for your location. Try the full version at /ask to get actual forecasts and sailing advice.";
-                    addMessage(fallbackMessage);
-                }, 1000);
-            }
+            if (!message || isLoading) return;
+
+            isLoading = true;
+            messageInput.disabled = true;
+            sendButton.disabled = true;
+            if (buttonSpinner) buttonSpinner.classList.remove('hidden');
+            messageInput.classList.add('opacity-50');
+
+            addMessage(message, true);
+            messageInput.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const fallbackMessage = window.seamateI18n ? window.seamateI18n.t('demo.conv.fallback') : "This is a demo! In the real SailMate app, I would analyze real-time marine data and provide detailed safety recommendations for your location. Try the full version at /ask to get actual forecasts and sailing advice.";
+                addMessage(fallbackMessage);
+
+                isLoading = false;
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                if (buttonSpinner) buttonSpinner.classList.add('hidden');
+                messageInput.classList.remove('opacity-50');
+                messageInput.focus();
+            }, 1000);
         }
 
         sendButton.addEventListener('click', sendMessage);
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !isLoading) {
+                e.preventDefault();
                 sendMessage();
             }
         });
+    </script>
+    <!-- Toast/Snackbar Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
+        <!-- Toast messages will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Toast/Snackbar System
+        class ToastManager {
+            constructor() {
+                this.container = document.getElementById('toast-container');
+                this.toasts = [];
+            }
+
+            show(message, type = 'error', duration = 5000) {
+                const toast = this.createToast(message, type);
+                this.container.appendChild(toast);
+                this.toasts.push(toast);
+
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.add('translate-x-0', 'opacity-100');
+                }, 10);
+
+                // Auto remove
+                setTimeout(() => {
+                    this.remove(toast);
+                }, duration);
+
+                return toast;
+            }
+
+            createToast(message, type) {
+                const toast = document.createElement('div');
+                const bgColor = type === 'error' ? 'bg-red-500' : 
+                               type === 'success' ? 'bg-green-500' : 
+                               type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500';
+                
+                const icon = type === 'error' ? '❌' : 
+                            type === 'success' ? '✅' : 
+                            type === 'warning' ? '⚠️' : 'ℹ️';
+
+                toast.className = `
+                    ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg 
+                    transform translate-x-full opacity-0 transition-all duration-300 ease-out
+                    max-w-sm pointer-events-auto
+                    flex items-center space-x-3
+                `;
+                
+                toast.innerHTML = `
+                    <span class="text-lg">${icon}</span>
+                    <span class="flex-1 text-sm font-medium">${message}</span>
+                    <button onclick="toastManager.remove(this.parentElement)" 
+                            class="text-white/80 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+
+                return toast;
+            }
+
+            remove(toast) {
+                if (!toast) return;
+                
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+                
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                    this.toasts = this.toasts.filter(t => t !== toast);
+                }, 300);
+            }
+
+            clear() {
+                this.toasts.forEach(toast => this.remove(toast));
+            }
+        }
+
+        // Initialize toast manager
+        const toastManager = new ToastManager();
+        window.toastManager = toastManager;
+
+        // Global error handler for fetch requests
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            toastManager.show('Network error occurred. Please check your connection and try again.', 'error');
+        });
+
+        // Enhanced fetch wrapper with toast notifications for demo page
+        window.safeFetch = async (url, options = {}) => {
+            try {
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return response;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                
+                let errorMessage = 'An error occurred while fetching data.';
+                
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage = 'Network error. Please check your internet connection.';
+                } else if (error.message.includes('HTTP error')) {
+                    errorMessage = 'Server error. Please try again later.';
+                }
+                
+                toastManager.show(errorMessage, 'error');
+                throw error;
+            }
+        };
     </script>
     <script src="js/i18n.js"></script>
 </body>

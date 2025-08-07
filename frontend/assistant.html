@@ -147,8 +147,9 @@
             <div class="flex space-x-2 sm:space-x-3">
                 <input type="text" id="message-input" placeholder="Ask about marine conditions..." data-i18n="assistant.input-placeholder"
                        class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
-                <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base" data-i18n="assistant.send">
-                    Send
+                <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
+                    <span class="button-label" data-i18n="assistant.send">Send</span>
+                    <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
                 </button>
             </div>
         </div>
@@ -183,6 +184,8 @@
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+        const buttonLabel = document.querySelector('#send-button .button-label');
+        const buttonSpinner = document.querySelector('#send-button .button-spinner');
         
         let isLoading = false;
 
@@ -278,6 +281,9 @@
             isLoading = true;
             sendButton.disabled = true;
             messageInput.disabled = true;
+            sendButton.setAttribute('aria-busy', 'true');
+            if (buttonSpinner) buttonSpinner.classList.remove('hidden');
+            messageInput.classList.add('opacity-50');
 
             // Add user message
             addMessage(message, true);
@@ -321,12 +327,29 @@
             } catch (error) {
                 console.error('Error:', error);
                 hideLoading(loadingDiv);
+                
+                // Show toast notification for the error
+                if (window.toastManager) {
+                    let errorMessage = 'Sorry, I encountered an error connecting to the server. Please try again later.';
+                    
+                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                        errorMessage = 'Network error. Please check your internet connection.';
+                    } else if (error.message.includes('HTTP error')) {
+                        errorMessage = 'Server error. Please try again later.';
+                    }
+                    
+                    window.toastManager.show(errorMessage, 'error');
+                }
+                
                 addMessage('Sorry, I encountered an error connecting to the server. Please try again later.');
             } finally {
                 isLoading = false;
                 sendButton.disabled = false;
                 messageInput.disabled = false;
                 messageInput.focus();
+                sendButton.removeAttribute('aria-busy');
+                if (buttonSpinner) buttonSpinner.classList.add('hidden');
+                messageInput.classList.remove('opacity-50');
             }
         }
 
@@ -343,7 +366,7 @@
                     const waveHeightFt = (data.wave_height * 3.28084).toFixed(1); // Convert meters to feet
                     const waveColor = getWaveHeightColor(data.wave_height);
                     structuredHtml += `<div>
-                        <span class="font-medium text-gray-700">Wave Height:</span>
+                        <span class="font-medium text-gray-700">🌊 Wave Height:</span>
                         <span class="${waveColor} font-semibold"> ${waveHeightFt} feet</span>
                     </div>`;
                 }
@@ -352,7 +375,7 @@
                 if (data.wind_speed !== null) {
                     const windColor = getWindSpeedColor(data.wind_speed);
                     structuredHtml += `<div>
-                        <span class="font-medium text-gray-700">Wind Speed:</span>
+                        <span class="font-medium text-gray-700">💨 Wind Speed:</span>
                         <span class="${windColor} font-semibold"> ${data.wind_speed.toFixed(1)} knots</span>
                     </div>`;
                 }
@@ -361,7 +384,7 @@
                 if (data.wind_direction !== null) {
                     const windDir = getWindDirection(data.wind_direction);
                     structuredHtml += `<div>
-                        <span class="font-medium text-gray-700">Wind Direction:</span>
+                        <span class="font-medium text-gray-700">🧭 Wind Direction:</span>
                         <span class="text-blue-600 font-semibold"> ${windDir}</span>
                     </div>`;
                 }
@@ -370,7 +393,7 @@
                 if (data.safety_level !== null) {
                     const safetyColor = getSafetyLevelColor(data.safety_level);
                     structuredHtml += `<div>
-                        <span class="font-medium text-gray-700">Safety Level:</span>
+                        <span class="font-medium text-gray-700">🚩 Safety Level:</span>
                         <span class="${safetyColor} font-semibold"> ${data.safety_level}</span>
                     </div>`;
                 }
@@ -404,13 +427,13 @@
 
         function getSafetyLevelColor(safetyLevel) {
             const level = safetyLevel.toLowerCase();
-            if (level.includes('safe') || level.includes('good') || level.includes('excellent')) {
+            if (level.includes('safe') || level.includes('good') || level.includes('excellent') || level.includes('low risk')) {
                 return 'text-green-600';
-            } else if (level.includes('moderate') || level.includes('fair')) {
+            } else if (level.includes('moderate') || level.includes('fair') || level.includes('medium risk')) {
                 return 'text-blue-600';
-            } else if (level.includes('caution') || level.includes('poor')) {
+            } else if (level.includes('caution') || level.includes('poor') || level.includes('high risk')) {
                 return 'text-orange-600';
-            } else if (level.includes('dangerous') || level.includes('unsafe')) {
+            } else if (level.includes('dangerous') || level.includes('unsafe') || level.includes('extreme risk')) {
                 return 'text-red-600';
             }
             return 'text-gray-600'; // Default
@@ -424,8 +447,8 @@
 
         // Event listeners
         sendButton.addEventListener('click', sendMessage);
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !isLoading) {
                 e.preventDefault();
                 sendMessage();
             }
@@ -434,6 +457,97 @@
         // Focus input on page load
         document.addEventListener('DOMContentLoaded', () => {
             messageInput.focus();
+        });
+    </script>
+    <!-- Toast/Snackbar Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
+        <!-- Toast messages will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Toast/Snackbar System
+        class ToastManager {
+            constructor() {
+                this.container = document.getElementById('toast-container');
+                this.toasts = [];
+            }
+
+            show(message, type = 'error', duration = 5000) {
+                const toast = this.createToast(message, type);
+                this.container.appendChild(toast);
+                this.toasts.push(toast);
+
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.add('translate-x-0', 'opacity-100');
+                }, 10);
+
+                // Auto remove
+                setTimeout(() => {
+                    this.remove(toast);
+                }, duration);
+
+                return toast;
+            }
+
+            createToast(message, type) {
+                const toast = document.createElement('div');
+                const bgColor = type === 'error' ? 'bg-red-500' : 
+                               type === 'success' ? 'bg-green-500' : 
+                               type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500';
+                
+                const icon = type === 'error' ? '❌' : 
+                            type === 'success' ? '✅' : 
+                            type === 'warning' ? '⚠️' : 'ℹ️';
+
+                toast.className = `
+                    ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg 
+                    transform translate-x-full opacity-0 transition-all duration-300 ease-out
+                    max-w-sm pointer-events-auto
+                    flex items-center space-x-3
+                `;
+                
+                toast.innerHTML = `
+                    <span class="text-lg">${icon}</span>
+                    <span class="flex-1 text-sm font-medium">${message}</span>
+                    <button onclick="toastManager.remove(this.parentElement)" 
+                            class="text-white/80 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+
+                return toast;
+            }
+
+            remove(toast) {
+                if (!toast) return;
+                
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+                
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                    this.toasts = this.toasts.filter(t => t !== toast);
+                }, 300);
+            }
+
+            clear() {
+                this.toasts.forEach(toast => this.remove(toast));
+            }
+        }
+
+        // Initialize toast manager
+        const toastManager = new ToastManager();
+        window.toastManager = toastManager;
+
+        // Global error handler for fetch requests
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            toastManager.show('Network error occurred. Please check your connection and try again.', 'error');
         });
     </script>
     <script src="js/i18n.js"></script>

@@ -129,7 +129,7 @@ class I18n {
                 'demo.conv.answer1.analysis': 'Conditions are moderate for experienced sailors. Waves are manageable but be cautious of occasional larger sets. Wind is steady from the northwest. Consider checking tide times and bring appropriate safety gear.',
                 'demo.conv.question2': 'What about tomorrow\'s forecast?',
                 'demo.conv.answer2.intro': 'Tomorrow\'s forecast for Santa Cruz shows:',
-                'demo.conv.answer2.warning': '⚠️ **Exercise caution tomorrow.** Larger waves and stronger winds expected. Only recommended for experienced sailors with proper safety equipment. Consider postponing if you\'re less experienced.',
+                'demo.conv.answer2.warning': '⚠️ <strong>Exercise caution tomorrow.</strong> Larger waves and stronger winds expected. Only recommended for experienced sailors with proper safety equipment. Consider postponing if you\'re less experienced.',
                 'demo.conv.fallback': 'This is a demo! In the real SailMate app, I would analyze real-time marine data and provide detailed safety recommendations for your location. Try the full version at /ask to get actual forecasts and sailing advice.'
             },
             tr: {
@@ -258,7 +258,7 @@ class I18n {
                 'demo.conv.answer1.analysis': 'Deneyimli denizciler için koşullar orta seviyede. Dalgalar yönetilebilir ancak ara sıra daha büyük setlerde dikkatli olun. Rüzgar kuzeybatıdan sabit. Gelgit zamanlarını kontrol etmeyi ve uygun güvenlik ekipmanı getirmeyi düşünün.',
                 'demo.conv.question2': 'Yarınki tahmin nasıl?',
                 'demo.conv.answer2.intro': 'Santa Cruz için yarınki tahmin şunu gösteriyor:',
-                'demo.conv.answer2.warning': '⚠️ **Yarın dikkatli olun.** Daha büyük dalgalar ve güçlü rüzgarlar bekleniyor. Sadece uygun güvenlik ekipmanına sahip deneyimli denizciler için öneriliyor. Daha az deneyimliyseniz ertelemeyi düşünün.',
+                'demo.conv.answer2.warning': '⚠️ <strong>Yarın dikkatli olun.</strong> Daha büyük dalgalar ve güçlü rüzgarlar bekleniyor. Sadece uygun güvenlik ekipmanına sahip deneyimli denizciler için öneriliyor. Daha az deneyimliyseniz ertelemeyi düşünün.',
                 'demo.conv.fallback': 'Bu bir demo! Gerçek SailMate uygulamasında, gerçek zamanlı deniz verilerini analiz eder ve konumunuz için detaylı güvenlik önerileri sağlarım. Gerçek tahminler ve yelken tavsiyeleri almak için /ask adresindeki tam sürümü deneyin.'
             }
         };
@@ -484,20 +484,20 @@ class I18n {
             <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
                 <div class="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wave-height')}:</span>
+                        <span class="font-medium text-gray-700">🌊 ${this.t('marine.wave-height')}:</span>
                         <span class="text-green-600 font-semibold"> 3-5 feet</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wind-speed')}:</span>
+                        <span class="font-medium text-gray-700">💨 ${this.t('marine.wind-speed')}:</span>
                         <span class="text-blue-600 font-semibold"> 12-15 knots</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wind-direction')}:</span>
+                        <span class="font-medium text-gray-700">🧭 ${this.t('marine.wind-direction')}:</span>
                         <span class="text-blue-600 font-semibold"> NW</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.safety-level')}:</span>
-                        <span class="text-green-600 font-semibold"> Moderate</span>
+                        <span class="font-medium text-gray-700">🚩 ${this.t('marine.safety-level')}:</span>
+                        <span class="text-green-600 font-semibold"> Safe</span>
                     </div>
                 </div>
             </div>
@@ -511,19 +511,19 @@ class I18n {
             <div class="bg-white rounded-lg p-3 sm:p-4 border border-gray-200">
                 <div class="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wave-height')}:</span>
+                        <span class="font-medium text-gray-700">🌊 ${this.t('marine.wave-height')}:</span>
                         <span class="text-orange-600 font-semibold"> 6-8 feet</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wind-speed')}:</span>
+                        <span class="font-medium text-gray-700">💨 ${this.t('marine.wind-speed')}:</span>
                         <span class="text-orange-600 font-semibold"> 18-22 knots</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.wind-direction')}:</span>
+                        <span class="font-medium text-gray-700">🧭 ${this.t('marine.wind-direction')}:</span>
                         <span class="text-blue-600 font-semibold"> W</span>
                     </div>
                     <div>
-                        <span class="font-medium text-gray-700">${this.t('marine.safety-level')}:</span>
+                        <span class="font-medium text-gray-700">🚩 ${this.t('marine.safety-level')}:</span>
                         <span class="text-orange-600 font-semibold"> Caution</span>
                     </div>
                 </div>

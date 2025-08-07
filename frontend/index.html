@@ -293,24 +293,40 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-bg pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up leading-tight" data-i18n="hero.title">
-                    Is it safe to sail today?
-                </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-up stagger-1 mobile-text-lg" data-i18n="hero.subtitle">
-                    Get real-time marine forecasts, wave heights, and sailing safety analysis — just by asking a question.
-                </p>
-                <a href="demo.html" class="inline-flex items-center bg-docker-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover fade-in-up stagger-2 mobile-btn mobile-touch-target" data-i18n="hero.cta">
-                    Try the Demo
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                </a>
+   <!-- Hero Section -->
+<section class="hero-bg pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center">
+            <!-- Lottie Animation Script -->
+            <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+
+            <!-- Centered Animation -->
+            <div class="flex justify-center mb-6">
+                <dotlottie-wc
+                    src="https://lottie.host/3ca45006-8b7f-4aa9-8efc-36b4aab40ec7/niW6PARxJX.lottie"
+                    style="width: 300px; height: 300px"
+                    speed="0.7"
+                    autoplay
+                    loop>
+                </dotlottie-wc>
             </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up leading-tight" data-i18n="hero.title">
+                Is it safe to sail today?
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-up stagger-1 mobile-text-lg" data-i18n="hero.subtitle">
+                Get real-time marine forecasts, wave heights, and sailing safety analysis — just by asking a question.
+            </p>
+            <a href="demo.html" class="inline-flex items-center bg-docker-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover fade-in-up stagger-2 mobile-btn mobile-touch-target" data-i18n="hero.cta">
+                Try the Demo
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- How It Works Section -->
     <section id="how-it-works" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
@@ -689,6 +705,122 @@
                 el.classList.add('visible');
             });
         });
+    </script>
+    <!-- Toast/Snackbar Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
+        <!-- Toast messages will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Toast/Snackbar System
+        class ToastManager {
+            constructor() {
+                this.container = document.getElementById('toast-container');
+                this.toasts = [];
+            }
+
+            show(message, type = 'error', duration = 5000) {
+                const toast = this.createToast(message, type);
+                this.container.appendChild(toast);
+                this.toasts.push(toast);
+
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.add('translate-x-0', 'opacity-100');
+                }, 10);
+
+                // Auto remove
+                setTimeout(() => {
+                    this.remove(toast);
+                }, duration);
+
+                return toast;
+            }
+
+            createToast(message, type) {
+                const toast = document.createElement('div');
+                const bgColor = type === 'error' ? 'bg-red-500' : 
+                               type === 'success' ? 'bg-green-500' : 
+                               type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500';
+                
+                const icon = type === 'error' ? '❌' : 
+                            type === 'success' ? '✅' : 
+                            type === 'warning' ? '⚠️' : 'ℹ️';
+
+                toast.className = `
+                    ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg 
+                    transform translate-x-full opacity-0 transition-all duration-300 ease-out
+                    max-w-sm pointer-events-auto
+                    flex items-center space-x-3
+                `;
+                
+                toast.innerHTML = `
+                    <span class="text-lg">${icon}</span>
+                    <span class="flex-1 text-sm font-medium">${message}</span>
+                    <button onclick="toastManager.remove(this.parentElement)" 
+                            class="text-white/80 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+
+                return toast;
+            }
+
+            remove(toast) {
+                if (!toast) return;
+                
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+                
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                    this.toasts = this.toasts.filter(t => t !== toast);
+                }, 300);
+            }
+
+            clear() {
+                this.toasts.forEach(toast => this.remove(toast));
+            }
+        }
+
+        // Initialize toast manager
+        const toastManager = new ToastManager();
+
+        // Global error handler for fetch requests
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            toastManager.show('Network error occurred. Please check your connection and try again.', 'error');
+        });
+
+        // Enhanced fetch wrapper with toast notifications
+        window.safeFetch = async (url, options = {}) => {
+            try {
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return response;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                
+                let errorMessage = 'An error occurred while fetching data.';
+                
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage = 'Network error. Please check your internet connection.';
+                } else if (error.message.includes('HTTP error')) {
+                    errorMessage = 'Server error. Please try again later.';
+                }
+                
+                toastManager.show(errorMessage, 'error');
+                throw error;
+            }
+        };
     </script>
     <script src="js/i18n.js"></script>
 </body>
