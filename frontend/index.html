@@ -8,7 +8,10 @@
     <link rel="shortcut icon" href="/images/fav.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    </noscript>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -44,58 +47,15 @@
         /* Enhanced animation classes */
         .fade-in-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(16px);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        .fade-in-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .fade-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .fade-in-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .fade-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .scale-in {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .scale-in.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .slide-up {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .slide-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* Legacy classes removed: fade-in-left, fade-in-right, scale-in, slide-up */
         
         /* Stagger animation delays */
         .stagger-1 { transition-delay: 0.1s; }
@@ -276,34 +236,35 @@
             <!-- Centered Animation -->
             <div class="flex justify-center mb-3">
                 <dotlottie-wc
-                    src="https://lottie.host/3ca45006-8b7f-4aa9-8efc-36b4aab40ec7/niW6PARxJX.lottie"
-                    class="w-[150px] h-[150px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]"
-                    style="width: 100%; max-width: 400px; height: auto;"
-                    speed="0.7"
+                    src="https://lottie.host/e11515b3-eba7-4f05-bd10-5a6caa5f1c8d/utA6To8JCA.lottie"
+                    class="w-full h-auto max-w-[280px] sm:max-w-[340px] md:max-w-[380px]"
+                    speed="0.6"
                     autoplay
                     loop>
                 </dotlottie-wc>
             </div>
 
-            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up leading-tight">
-                Is it safe to sail today?
-            </h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto fade-in-up stagger-1 mobile-text-lg">
-                Get real-time marine forecasts, wave heights, and sailing safety analysis — just by asking a question.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in-up stagger-2">
-                <a href="demo.html" class="inline-flex items-center bg-white text-docker-blue border-2 border-docker-blue px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover mobile-btn mobile-touch-target hover:bg-docker-blue hover:text-white transition-colors">
-                    Check the Demo
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                </a>
-                <a href="assistant.html" class="inline-flex items-center bg-docker-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover mobile-btn mobile-touch-target">
-                    Try It Now
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                </a>
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 fade-in-up leading-tight">
+                    Is it safe to sail today?
+                </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto fade-in-up stagger-1 mobile-text-lg">
+                    Get real-time marine forecasts, wave heights, and sailing safety analysis — just by asking a question.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in-up stagger-2">
+                    <a href="demo.html" class="inline-flex items-center bg-white text-docker-blue border-2 border-docker-blue px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover mobile-btn mobile-touch-target hover:bg-docker-blue hover:text-white transition-colors">
+                        Check the Demo
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </a>
+                    <a href="assistant.html" class="inline-flex items-center bg-docker-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold btn-hover mobile-btn mobile-touch-target">
+                        Try It Now
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -311,136 +272,136 @@
 
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="how-it-works" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white fade-in-up">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 sm:mb-16">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in-up">How It Works</h2>
-                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Three simple steps to get your sailing safety analysis</p>
+                <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto fade-in-up stagger-1">Three simple steps to get your sailing safety analysis</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Step 1 -->
                 <div class="text-center fade-in-up stagger-1 p-4">
-                    <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
+                    <div class="bg-docker-blue/15 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 opacity-0 translate-y-4 transition duration-300">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Ask a Question</h3>
-                    <p class="text-gray-600 text-sm sm:text-base">e.g. "How are the waves near Santa Cruz?"</p>
+                    <p class="text-gray-700 text-sm sm:text-base">e.g. "How are the waves near Santa Cruz?"</p>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="text-center fade-in-up stagger-2 p-4">
-                    <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
+                    <div class="bg-docker-blue/15 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 opacity-0 translate-y-4 transition duration-300">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">We Fetch Real-Time Data</h3>
-                    <p class="text-gray-600 text-sm sm:text-base">From OpenWeather + Open-Meteo APIs</p>
+                    <p class="text-gray-700 text-sm sm:text-base">From OpenWeather + Open-Meteo APIs</p>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="text-center fade-in-up stagger-3 p-4">
-                    <div class="bg-docker-blue/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 scale-in">
+                    <div class="bg-docker-blue/15 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 opacity-0 translate-y-4 transition duration-300">
                         <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3">Get Sailing Advice</h3>
-                    <p class="text-gray-600 text-sm sm:text-base">Our AI assistant explains wind, waves, and safety clearly</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Our AI assistant explains wind, waves, and safety clearly</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-soft-gray">
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-soft-gray border-t border-gray-100">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 sm:mb-16">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 fade-in-up">Why Choose SailMate?</h2>
-                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto fade-in-up stagger-1">Everything you need for safe sailing decisions</p>
+                <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto fade-in-up stagger-1">Everything you need for safe sailing decisions</p>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-1">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-1">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">No Installation</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">Works from your browser — no downloads required</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Works from your browser — no downloads required</p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-2">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-2">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">Real-Time Data</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">Live marine & weather data from trusted sources</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Live marine & weather data from trusted sources</p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-3">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-3">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">AI-Powered Safety</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">Intelligent analysis of conditions and risks</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Intelligent analysis of conditions and risks</p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-4">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-4">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">Location-Aware</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">Smart suggestions based on your area</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Smart suggestions based on your area</p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-5">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-5">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">Mobile-Ready</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">Optimized for phones and tablets</p>
+                    <p class="text-gray-700 text-sm sm:text-base">Optimized for phones and tablets</p>
                 </div>
 
-                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm slide-up stagger-6">
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-sm opacity-0 translate-y-4 transition duration-300 stagger-6">
                     <div class="flex items-center mb-4">
-                        <div class="bg-green-100 rounded-full p-2 mr-4 scale-in">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-green-100 rounded-full w-12 h-12 mr-3 flex items-center justify-center opacity-0 translate-y-4 transition duration-300">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">Always Free</h3>
                     </div>
-                    <p class="text-gray-600 text-sm sm:text-base">No subscriptions or hidden fees</p>
+                    <p class="text-gray-700 text-sm sm:text-base">No subscriptions or hidden fees</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Banner -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-docker-blue">
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-docker-blue border-t border-gray-100">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 fade-in-up leading-tight">
                 Whether you're planning a weekend sail or checking tomorrow's forecast — we've got your back.
@@ -471,11 +432,11 @@
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-                <div class="fade-in-left">
-                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6">
+                <div class="opacity-0 translate-y-4 transition duration-300">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
                         We built this tool to help sailors, surfers, and explorers make safer, smarter decisions. Whether you're on the California coast or the Aegean Sea — just ask, and we'll guide you.
                     </p>
-                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-8">
                         Our AI combines real-time weather data, marine forecasts, and sailing expertise to give you the information you need to stay safe on the water.
                     </p>
                     <a href="#contact" class="inline-flex items-center bg-docker-blue text-white px-6 py-3 rounded-full font-medium btn-hover mobile-btn mobile-touch-target">
@@ -486,14 +447,14 @@
                     </a>
                 </div>
                 
-                <div class="text-center fade-in-right">
-                    <div class="bg-docker-blue/10 rounded-full w-24 sm:w-32 h-24 sm:h-32 flex items-center justify-center mx-auto mb-6 scale-in">
+                <div class="text-center opacity-0 translate-y-4 transition duration-300">
+                    <div class="bg-docker-blue/15 rounded-full w-24 sm:w-32 h-24 sm:h-32 flex items-center justify-center mx-auto mb-6 opacity-0 translate-y-4 transition duration-300">
                         <svg class="w-12 sm:w-16 h-12 sm:h-16 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                         </svg>
                     </div>
                     <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Built by Sailors</h3>
-                    <p class="text-gray-600 text-sm sm:text-base">For sailors, by sailors</p>
+                    <p class="text-gray-700 text-sm sm:text-base">For sailors, by sailors</p>
                 </div>
             </div>
         </div>
@@ -503,28 +464,28 @@
     <section id="feedback" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-soft-gray">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in-up">Help Us Improve SeaMate</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 fade-in-up">Help Us Improve SailMate</h2>
                 <div class="w-24 h-1 bg-docker-blue mx-auto mb-8 fade-in-up stagger-1"></div>
-                <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto fade-in-up stagger-2">
-                    Your feedback helps us make SeaMate safer, smarter, and more helpful for sailors like you. Share your thoughts in just 2 minutes!
+                <p class="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto fade-in-up stagger-2">
+                    Your feedback helps us make SailMate safer, smarter, and more helpful for sailors like you. Share your thoughts in just 2 minutes!
                 </p>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
                 <!-- Feedback Call-to-Action -->
-                <div class="fade-in-left">
+                <div class="opacity-0 translate-y-4 transition duration-300">
                     <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100">
                         <div class="text-center">
                             <!-- Feedback Icon -->
-                            <div class="mx-auto w-16 h-16 bg-docker-blue/10 rounded-full flex items-center justify-center mb-6">
+                            <div class="mx-auto w-16 h-16 bg-docker-blue/15 rounded-full flex items-center justify-center mb-6">
                                 <svg class="w-8 h-8 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                 </svg>
                             </div>
                             
                             <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Share Your Experience</h3>
-                            <p class="text-gray-600 mb-6 text-sm sm:text-base">
-                                Tell us how you're using SeaMate and what features would make it even better for your sailing adventures.
+                            <p class="text-gray-700 mb-6 text-sm sm:text-base">
+                                Tell us how you're using SailMate and what features would make it even better for your sailing adventures.
                             </p>
                             
                             <!-- Feedback Button -->
@@ -549,7 +510,7 @@
                 </div>
                 
                 <!-- Feedback Benefits -->
-                <div class="fade-in-right">
+                <div class="opacity-0 translate-y-4 transition duration-300">
                     <div class="space-y-6">
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
@@ -561,7 +522,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="text-lg font-medium text-gray-900">Shape Future Features</h4>
-                                <p class="text-gray-600 text-sm">Your input directly influences what we build next. Help us prioritize the features that matter most to sailors.</p>
+                                <p class="text-gray-700 text-sm">Your input directly influences what we build next. Help us prioritize the features that matter most to sailors.</p>
                             </div>
                         </div>
                         
@@ -575,7 +536,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="text-lg font-medium text-gray-900">Get Early Access</h4>
-                                <p class="text-gray-600 text-sm">Be among the first to test new features and improvements before they're released to everyone.</p>
+                                <p class="text-gray-700 text-sm">Be among the first to test new features and improvements before they're released to everyone.</p>
                             </div>
                         </div>
                         
@@ -589,7 +550,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="text-lg font-medium text-gray-900">Join the Community</h4>
-                                <p class="text-gray-600 text-sm">Connect with other sailors and help build a safer, smarter sailing community together.</p>
+                                <p class="text-gray-700 text-sm">Connect with other sailors and help build a safer, smarter sailing community together.</p>
                             </div>
                         </div>
                         
@@ -603,7 +564,7 @@
                             </div>
                             <div class="ml-4">
                                 <h4 class="text-lg font-medium text-gray-900">Quick & Anonymous</h4>
-                                <p class="text-gray-600 text-sm">Share as much or as little as you'd like. Your privacy is important to us.</p>
+                                <p class="text-gray-700 text-sm">Share as much or as little as you'd like. Your privacy is important to us.</p>
                             </div>
                         </div>
                     </div>
@@ -620,7 +581,7 @@
                 <!-- Logo and Brand - Centered on mobile -->
                 <div class="mb-8 md:mb-0">
                     <div class="flex justify-center md:justify-start mb-4">
-                        <img src="images/Logo.png" alt="SailMate" class="h-20 sm:h-24 md:h-28 w-auto">
+                        <img src="images/Logo.png" alt="SailMate" class="h-20 sm:h-24 md:h-28 w-auto" loading="lazy" decoding="async">
                     </div>
                     <p class="text-gray-300 mb-6 text-sm sm:text-base max-w-md mx-auto md:mx-0">
                         Making sailing safer and smarter with AI-powered marine forecasts.
@@ -731,78 +692,82 @@
             });
         });
 
-        // Enhanced Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enhanced Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: [0, 0.1, 0.2],
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        // Observe all animated elements
-        const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .slide-up');
-        animatedElements.forEach(el => {
-            observer.observe(el);
-        });
-
-        // Enhanced scroll effects
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            const scrolled = window.scrollY;
-            
-            // Navbar background effect
-            if (scrolled > 10) {
-                nav.classList.add('bg-white/95');
-            } else {
-                nav.classList.remove('bg-white/95');
-            }
-            
-            // Additional scroll-based animation trigger for better responsiveness
-            const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .slide-up');
-            animatedElements.forEach(el => {
-                if (!el.classList.contains('visible')) {
-                    const rect = el.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-                    
-                    // Trigger animation when element is 20% into the viewport
-                    if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
-                        el.classList.add('visible');
-                    }
-                }
-            });
-        });
-        
-        // Trigger hero animations immediately on page load
-        window.addEventListener('load', () => {
-            // Immediately show hero animations
-            const heroElements = document.querySelectorAll('.hero-bg .fade-in-up');
-            heroElements.forEach(el => {
-                el.classList.add('visible');
-            });
-            
-            // Check for other visible elements after a short delay
-            setTimeout(() => {
-                const visibleElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .slide-up');
-                visibleElements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        el.classList.add('visible');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // For legacy .fade-in-up, keep toggling 'visible'
+                        entry.target.classList.add('visible');
+                        // For Tailwind utility approach, remove initial opacity/translate to animate in
+                        entry.target.classList.remove('opacity-0');
+                        entry.target.classList.remove('translate-y-4');
                     }
                 });
-            }, 200);
-        });
-        
-        // Also trigger hero animations on DOMContentLoaded for faster response
-        document.addEventListener('DOMContentLoaded', () => {
+            }, {
+                threshold: [0, 0.1, 0.2],
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all animated elements
+            const animatedElements = document.querySelectorAll('.fade-in-up, .opacity-0.translate-y-4');
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // Enhanced scroll effects
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                const scrolled = window.scrollY;
+                
+                // Navbar background effect
+                if (scrolled > 10) {
+                    nav.classList.add('bg-white/95');
+                } else {
+                    nav.classList.remove('bg-white/95');
+                }
+                
+                // Additional scroll-based animation trigger for better responsiveness
+                const animatedElements = document.querySelectorAll('.fade-in-up, .opacity-0.translate-y-4');
+                animatedElements.forEach(el => {
+                    if (!el.classList.contains('visible')) {
+                        const rect = el.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        
+                        // Trigger animation when element is 20% into the viewport
+                        if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
+                            el.classList.add('visible');
+                        }
+                    }
+                });
+            });
+            
+            // Trigger hero animations immediately on page load
+            window.addEventListener('load', () => {
+                // Immediately show hero animations
+                const heroElements = document.querySelectorAll('.hero-bg .fade-in-up');
+                heroElements.forEach(el => {
+                    el.classList.add('visible');
+                });
+                
+                // Check for other visible elements after a short delay
+                setTimeout(() => {
+                    const visibleElements = document.querySelectorAll('.fade-in-up, .opacity-0.translate-y-4');
+                    visibleElements.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            el.classList.add('visible');
+                        }
+                    });
+                }, 200);
+            });
+
+            // Also trigger hero animations on DOMContentLoaded for faster response
             const heroElements = document.querySelectorAll('.hero-bg .fade-in-up');
             heroElements.forEach(el => {
                 el.classList.add('visible');
@@ -815,6 +780,7 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
         // Toast/Snackbar System
         class ToastManager {
             constructor() {
@@ -891,12 +857,12 @@
         }
 
         // Initialize toast manager
-        const toastManager = new ToastManager();
+        window.toastManager = new ToastManager();
 
         // Global error handler for fetch requests
         window.addEventListener('unhandledrejection', (event) => {
             console.error('Unhandled promise rejection:', event.reason);
-            toastManager.show('Network error occurred. Please check your connection and try again.', 'error');
+            window.toastManager.show('Network error occurred. Please check your connection and try again.', 'error');
         });
 
         // Enhanced fetch wrapper with toast notifications
@@ -920,12 +886,13 @@
                     errorMessage = 'Server error. Please try again later.';
                 }
                 
-                toastManager.show(errorMessage, 'error');
+                window.toastManager.show(errorMessage, 'error');
                 throw error;
             }
         };
 
         // Feedback section - no JavaScript needed since it links to external Google Form
+        });
     </script>
 
 </body>
