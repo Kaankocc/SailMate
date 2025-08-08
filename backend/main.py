@@ -17,12 +17,15 @@ app = FastAPI(title="SailMate Backend", description="AI-powered sailing assistan
 # Environment-aware CORS configuration
 def get_cors_origins():
     # Get environment variable for allowed origins
-    allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+    allowed_origins = ["*"]
     
     # Default origins for development and production
     default_origins = [
-        "http://localhost:8080",  # Local development
-        "http://127.0.0.1:8080",  # Local development alternative
+        "http://localhost:8000",  # Local development (frontend)
+        "http://127.0.0.1:8000",  # Local development alternative
+        "http://[::]:8000",       # IPv6 localhost
+        "http://localhost:8080",  # Alternative local development port
+        "http://127.0.0.1:8080",  # Alternative local development port
         "https://your-frontend-app.vercel.app",  # Replace with your Vercel domain
     ]
     

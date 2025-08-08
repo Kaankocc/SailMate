@@ -249,11 +249,11 @@
         // Configuration for API endpoint
         const getApiUrl = () => {
             // Check if we're running locally
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '[::1]' || window.location.hostname === '::') {
                 return 'http://localhost:8000';
             }
-            // Production API URL - replace with your Render backend URL
-            return 'https://your-backend-app.onrender.com';
+            // Production API URL - replace with your actual backend URL when deployed
+            return 'http://localhost:8000';
         };
 
         const API_BASE_URL = getApiUrl();
