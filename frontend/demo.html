@@ -27,6 +27,13 @@
         }
     </script>
     <style>
+        /* Subtle dotted background pattern */
+        .bg-dot-grid {
+            background-image: radial-gradient(rgba(6, 102, 208, 0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
         .chat-bubble {
             opacity: 0;
             transform: translateY(20px);
@@ -111,9 +118,13 @@
 
     </style>
 </head>
-<body class="font-inter bg-gray-50">
+<body class="font-inter relative bg-gradient-to-b from-sky-50 via-white to-white">
+    <!-- Decorative background pattern -->
+    <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="w-full h-full bg-dot-grid opacity-40"></div>
+    </div>
     <!-- Navigation -->
-    <nav class="bg-white border-b border-gray-200">
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
@@ -129,7 +140,7 @@
     </nav>
 
     <!-- Demo Header -->
-    <div class="bg-white border-b border-gray-200">
+    <div class="bg-gradient-to-r from-sky-50 to-white border-b border-blue-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div class="text-center">
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Try SailMate Demo</h1>
@@ -140,24 +151,34 @@
 
     <!-- Demo Chat Interface -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="bg-white rounded-xl shadow-md ring-1 ring-blue-100 border border-gray-100 border-t-4 border-t-docker-blue/70">
             <!-- Chat Header -->
             <div class="border-b border-gray-200 px-4 sm:px-6 py-4">
-                <div class="flex items-center">
+                <div class="flex items-center justify-between">
                     <div class="bg-docker-blue/10 rounded-full w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
-                        <svg class="w-6 h-6 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        <svg class="w-6 h-6 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                            <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                            <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                            <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                         </svg>
                     </div>
-                    <div>
+                    <div class="flex-1 min-w-0">
                         <h3 class="text-base sm:text-lg font-semibold text-gray-900">SailMate Assistant</h3>
                         <p class="text-xs sm:text-sm text-gray-500">Ask me about marine conditions and sailing safety</p>
+                    </div>
+                    <div class="ml-3 flex items-center space-x-2">
+                        <span class="hidden sm:inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700">Demo transcript</span>
+                        <button id="replay-demo-button" class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v6h6M20 20v-6h-6M5.5 18.5A8.5 8.5 0 1018.5 5.5"/></svg>
+                            Replay
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Chat Messages -->
-            <div id="chat-messages" class="px-4 sm:px-6 py-4 space-y-4 min-h-80 sm:min-h-96 max-h-96 sm:max-h-[32rem] overflow-y-auto">
+            <div id="chat-messages" role="log" aria-live="polite" aria-atomic="false" aria-label="Chat transcript" class="px-4 sm:px-6 py-4 space-y-4 min-h-80 sm:min-h-96 max-h-96 sm:max-h-[32rem] overflow-y-auto bg-soft-gray/60 rounded-lg ring-1 ring-gray-200">
                 <!-- Messages will be added here dynamically -->
             </div>
 
@@ -165,22 +186,22 @@
             <div class="border-t border-gray-200 px-4 sm:px-6 py-4">
                 <div class="flex space-x-2 sm:space-x-3">
                     <input type="text" id="message-input" placeholder="Ask about marine conditions..."
-                           class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
+                           class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base placeholder-gray-500">
                     <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
                         <span class="button-label">Send</span>
                         <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
                     </button>
                 </div>
-                <p class="text-xs text-gray-500 mt-2">This is a demo. In the real app, you can ask any sailing-related question!</p>
+                <p class="text-xs text-gray-500 mt-2">You're viewing a scripted demo conversation. After it finishes, you can type here. For real forecasts, try the full assistant.</p>
             </div>
         </div>
 
         <!-- Call to Action Section -->
-        <div class="mt-6 sm:mt-8 bg-docker-blue rounded-lg shadow-sm">
+        <div id="cta-section" class="mt-6 sm:mt-8 bg-gradient-to-r from-docker-blue to-docker-light-blue rounded-xl shadow-md">
             <div class="px-4 sm:px-6 py-6 sm:py-8 text-center">
                 <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">Want real forecasts?</h3>
                 <p class="text-white/90 mb-6 text-base sm:text-lg">Try the full SailMate Assistant with real-time marine data</p>
-                <a href="assistant.html" class="inline-flex items-center bg-white text-docker-blue px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors mobile-btn mobile-touch-target" id="cta-button">
+                <a href="assistant.html" class="inline-flex items-center bg-white text-docker-blue px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors mobile-btn mobile-touch-target shadow" id="cta-button">
                     <span class="text-sm sm:text-base">Try SailMate Assistant</span>
                     <svg class="w-4 sm:w-5 h-4 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -190,7 +211,7 @@
         </div>
 
         <!-- Demo Info -->
-        <div class="mt-6 sm:mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div class="mt-6 sm:mt-8 bg-white/80 backdrop-blur-sm rounded-xl shadow ring-1 ring-gray-100 p-4 sm:p-6">
             <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-4">How This Works</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <div class="text-center p-3 sm:p-0">
@@ -282,11 +303,12 @@
             
             if (isUser) {
                 messageDiv.innerHTML = `
-                    <div class="flex items-start space-x-2 sm:space-x-3 justify-end">
-                        <div class="bg-docker-blue rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                    <div class="flex items-start space-x-2 sm:space-x-3 justify-end" aria-label="You">
+                        <div class="bg-docker-blue rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble shadow-sm">
+                            <p class="text-white text-xs uppercase tracking-wide mb-1 opacity-80">You</p>
                             <p class="text-white text-sm sm:text-base">${message}</p>
                         </div>
-                        <div class="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                        <div class="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0" aria-hidden="true">
                             <svg class="w-4 sm:w-5 h-4 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
@@ -295,14 +317,18 @@
                 `;
             } else {
                 messageDiv.innerHTML = `
-                    <div class="flex items-start space-x-2 sm:space-x-3">
-                        <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    <div class="flex items-start space-x-2 sm:space-x-3" aria-label="SailMate">
+                        <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                                <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                                <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                                <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                             </svg>
                         </div>
-                        <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
-                            <div class="text-sm sm:text-base">${message}</div>
+                        <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble border border-gray-200 shadow-sm">
+                            <p class="text-docker-blue text-xs uppercase tracking-wide mb-1">SailMate</p>
+                            <div class="text-sm sm:text-base text-gray-800">${message}</div>
                         </div>
                     </div>
                 `;
@@ -406,6 +432,17 @@
             playDemo();
             
             function playDemo() {
+                // Insert a day divider for clarity
+                const divider = document.createElement('div');
+                divider.className = 'px-4 sm:px-6 py-2';
+                divider.innerHTML = `
+                    <div class="flex items-center justify-center">
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                        <span class="mx-3 text-xs uppercase tracking-wider text-gray-500">Today</span>
+                        <div class="flex-1 h-px bg-gray-200"></div>
+                    </div>`;
+                chatMessages.appendChild(divider);
+
                 function playNextStep() {
                     if (currentStep >= demoConversation.length) {
                         // Demo finished, enable input
@@ -414,7 +451,7 @@
                         
                         // Scroll to call-to-action
                         setTimeout(() => {
-                            const ctaSection = document.querySelector('.bg-docker-blue');
+                            const ctaSection = document.getElementById('cta-section');
                             if (ctaSection) {
                                 ctaSection.scrollIntoView({ behavior: 'smooth' });
                             }
@@ -424,10 +461,41 @@
                     }
                     
                     const step = demoConversation[currentStep];
+
+                    // Show typing indicator before assistant messages
+                    let typingEl = null;
+                    if (step.type === 'assistant') {
+                        typingEl = document.createElement('div');
+                        typingEl.className = 'flex items-center space-x-2 px-4 sm:px-6';
+                        typingEl.innerHTML = `
+                            <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                                <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                                    <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                                    <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                                    <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                                </svg>
+                            </div>
+                            <div class="bg-gray-100 rounded-lg px-3 py-2">
+                                <span class="inline-flex items-center space-x-2">
+                                    <span class="sr-only">SailMate is typing</span>
+                                    <span class="typing-indicator"></span>
+                                    <span class="text-xs text-gray-500">SailMate is typing…</span>
+                                </span>
+                            </div>`;
+                        chatMessages.appendChild(typingEl);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+
                     const messageDiv = createMessageElement(step.content, step.type === 'user');
                     
                     // Add message with fade-in animation
-                    chatMessages.appendChild(messageDiv);
+                    if (typingEl) {
+                        // Replace typing indicator with actual message
+                        chatMessages.replaceChild(messageDiv, typingEl);
+                    } else {
+                        chatMessages.appendChild(messageDiv);
+                    }
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                     
                     currentStep++;
@@ -456,6 +524,20 @@
             
             // Start demo after a short delay
             setTimeout(startDemo, 100);
+
+            // Wire up replay button
+            const replayButton = document.getElementById('replay-demo-button');
+            if (replayButton) {
+                replayButton.addEventListener('click', () => {
+                    chatMessages.innerHTML = '';
+                    currentStep = 0;
+                    messageInput.value = '';
+                    messageInput.disabled = true;
+                    sendButton.disabled = true;
+                    demoStarted = false;
+                    startDemo();
+                });
+            }
         });
 
         // Handle manual message sending after demo

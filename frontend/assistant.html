@@ -26,6 +26,12 @@
         }
     </script>
     <style>
+        /* Subtle dotted background pattern */
+        .bg-dot-grid {
+            background-image: radial-gradient(rgba(6, 102, 208, 0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
         .chat-bubble {
             opacity: 0;
             transform: translateY(20px);
@@ -93,9 +99,13 @@
 
     </style>
 </head>
-<body class="font-inter bg-gray-50 h-screen flex flex-col">
+<body class="font-inter relative bg-gradient-to-b from-sky-50 via-white to-white h-screen flex flex-col">
+    <!-- Decorative background pattern -->
+    <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="w-full h-full bg-dot-grid opacity-40"></div>
+    </div>
     <!-- Header -->
-    <header class="bg-white border-b border-gray-200 px-4 py-3 sm:py-4 flex-shrink-0">
+    <header class="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 sm:py-4 flex-shrink-0">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <div class="flex items-center">
                 <a href="index.html" class="mr-1">
@@ -108,33 +118,38 @@
     </header>
 
     <!-- Chat Container -->
-    <div class="flex-1 flex flex-col max-w-4xl mx-auto w-full mobile-full-height">
-        <!-- Chat Messages -->
-        <div id="chat-messages" class="flex-1 px-4 py-4 sm:py-6 space-y-3 sm:space-y-4 overflow-y-auto">
+    <div class="flex-1 flex flex-col max-w-4xl mx-auto w-full mobile-full-height px-4">
+        <div class="bg-white rounded-xl shadow-md ring-1 ring-blue-100 border border-gray-100 border-t-4 border-t-docker-blue/70 flex-1 flex flex-col overflow-hidden">
+            <!-- Chat Messages -->
+            <div id="chat-messages" role="log" aria-live="polite" aria-atomic="false" aria-label="Chat transcript" class="flex-1 px-4 py-4 sm:py-6 space-y-3 sm:space-y-4 overflow-y-auto bg-soft-gray/60">
             <!-- Welcome message -->
             <div class="chat-bubble">
                 <div class="flex items-start space-x-2 sm:space-x-3">
                     <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                            <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                            <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                            <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                         </svg>
                     </div>
-                    <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                    <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble border border-gray-200 shadow-sm">
                         <p class="text-gray-800 text-sm sm:text-base">Hi! I'm your real SailMate assistant. Ask me about marine conditions, wave heights, wind forecasts, or any sailing-related questions for any location. I'll fetch real-time data and provide safety recommendations.</p>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
-        <!-- Input Area -->
-        <div class="border-t border-gray-200 px-4 py-3 sm:py-4 bg-white flex-shrink-0">
-            <div class="flex space-x-2 sm:space-x-3">
-                <input type="text" id="message-input" placeholder="Ask about marine conditions..."
-                       class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base">
-                <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
-                    <span class="button-label">Send</span>
-                    <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
-                </button>
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 px-4 py-3 sm:py-4 bg-white flex-shrink-0">
+                <div class="flex space-x-2 sm:space-x-3">
+                    <input type="text" id="message-input" placeholder="Ask about marine conditions..."
+                           class="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-docker-blue focus:border-transparent mobile-input text-sm sm:text-base placeholder-gray-500">
+                    <button id="send-button" class="bg-docker-blue text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-docker-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed mobile-btn mobile-touch-target text-sm sm:text-base">
+                        <span class="button-label">Send</span>
+                        <span class="button-spinner typing-indicator hidden ml-2" aria-hidden="true"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -195,11 +210,14 @@
                 messageDiv.innerHTML = `
                     <div class="flex items-start space-x-2 sm:space-x-3">
                         <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                                <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                                <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                                <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                             </svg>
                         </div>
-                        <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble">
+                        <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mobile-chat-bubble border border-gray-200 shadow-sm">
                             <div class="${contentClass} text-sm sm:text-base">${content}</div>
                         </div>
                     </div>
@@ -215,8 +233,11 @@
             loadingDiv.innerHTML = `
                 <div class="flex items-start space-x-2 sm:space-x-3">
                     <div class="bg-docker-blue/10 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        <svg class="w-4 sm:w-5 h-4 sm:h-5 text-docker-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" fill="white" stroke="currentColor" stroke-width="2"></circle>
+                            <circle cx="9" cy="10" r="1.2" fill="currentColor"></circle>
+                            <circle cx="15" cy="10" r="1.2" fill="currentColor"></circle>
+                            <path d="M8 14c1.5 2 6.5 2 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                         </svg>
                     </div>
                     <div class="bg-gray-100 rounded-lg px-3 sm:px-4 py-2 sm:py-3">
