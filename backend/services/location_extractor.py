@@ -33,7 +33,7 @@ def extract_location_from_question(question: str) -> Optional[str]:
         print(f"\n🤖 SENDING TO OPENAI FOR LOCATION EXTRACTION...")
         
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages,
             max_tokens=20,
             temperature=0.1,

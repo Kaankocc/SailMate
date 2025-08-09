@@ -15,17 +15,24 @@ def get_ai_response(question: str, marine_data: Dict[str, Any]) -> str:
         formatted_data = format_marine_data(marine_data)
 
         messages = [
-            {"role": "system", "content": "You are an expert sailing assistant with access to comprehensive marine weather data."},
-            {"role": "user", "content": f"Current Marine Conditions:\n{formatted_data}"},
-            {"role": "user", "content": f"Question: {question}\n\nProvide a helpful, accurate response based on the marine data above. Consider wind conditions, wave heights, visibility, and other relevant factors for sailing safety."}
-        ]
+        {
+            "role": "system",
+            "content": (
+                "You are an expert sailing assistant. Write your answer in plain text "
+                "using short natural paragraphs separated by blank lines. "
+                "Do not use headings, bullet points, or numbered lists."
+            )
+        },
+        {"role": "user", "content": f"Current Marine Conditions:\n{formatted_data}"},
+        {"role": "user", "content": f"Question: {question}"}
+    ]
 
         logger.info("Sending prompt to OpenAI API.")
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages,
-            max_tokens=200,
-            temperature=0.7,
+            max_tokens=160,
+            temperature=0.2,
         )
         answer = response.choices[0].message.content.strip()
         logger.info("Received response from OpenAI API.")
