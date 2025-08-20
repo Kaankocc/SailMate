@@ -1,10 +1,10 @@
-# SeaMate - AI-Powered Sailing Assistant
+# SailMate - AI-Powered Sailing Assistant
 
-SeaMate is an intelligent sailing assistant that provides real-time marine weather data and safety insights to help sailors make informed decisions on the water.
+SailMate is an intelligent sailing assistant that provides real-time marine weather data and safety insights to help sailors make informed decisions on the water.
 
-## 🌊 What is SeaMate?
+## 🌊 What is SailMate?
 
-SeaMate combines advanced AI technology with comprehensive marine weather data to create a smart sailing companion. Whether you're planning a day trip or embarking on a longer voyage, SeaMate provides the critical information you need to sail safely and confidently.
+SailMate combines advanced AI technology with comprehensive marine weather data to create a smart sailing companion. Whether you're planning a day trip or embarking on a longer voyage, SailMate provides the critical information you need to sail safely and confidently.
 
 ## ✨ Key Features
 
@@ -29,7 +29,7 @@ SeaMate combines advanced AI technology with comprehensive marine weather data t
 ## 🚀 How It Works
 
 1. **Ask Questions**: Pose natural language questions about weather, routes, or safety concerns
-2. **Data Integration**: SeaMate fetches comprehensive marine weather data from multiple sources
+2. **Data Integration**: SailMate fetches comprehensive marine weather data from multiple sources
 3. **AI Analysis**: Our AI processes the data and provides intelligent, contextual responses
 4. **Safety Insights**: Get detailed safety assessments and recommendations
 
@@ -42,7 +42,7 @@ SeaMate combines advanced AI technology with comprehensive marine weather data t
 
 ## 🔧 Technology
 
-SeaMate leverages cutting-edge technology to deliver reliable marine intelligence:
+SailMate leverages cutting-edge technology to deliver reliable marine intelligence:
 
 - **AI-Powered**: Advanced language models provide natural, intelligent responses
 - **Multi-Source Data**: Integrates data from leading weather and marine APIs
@@ -51,8 +51,8 @@ SeaMate leverages cutting-edge technology to deliver reliable marine intelligenc
 
 ## 📱 Getting Started
 
-SeaMate is designed to be intuitive and easy to use. Simply ask questions about your sailing conditions, and get comprehensive, AI-powered insights to help you make informed decisions on the water.
+SailMate is designed to be intuitive and easy to use. Simply ask questions about your sailing conditions, and get comprehensive, AI-powered insights to help you make informed decisions on the water.
 
 ---
 
-_Sail smarter, sail safer with SeaMate - your AI-powered sailing companion._
+_Sail smarter, sail safer with SailMate - your AI-powered sailing companion._
