@@ -1,5 +1,7 @@
 # SailMate - AI-Powered Sailing Assistant
 
+Go check out SailMate: https://www.sailmateai.com/
+
 SailMate is an intelligent sailing assistant that provides real-time marine weather data and safety insights to help sailors make informed decisions on the water.
 
 ## 🌊 What is SailMate?
